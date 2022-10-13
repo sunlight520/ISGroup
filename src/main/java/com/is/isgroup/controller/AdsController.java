@@ -27,8 +27,8 @@ public class AdsController {
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
-        adsService.insertAds(inform,price,path+fileName);
-        return new JsonResult<>(OK);
+        Ads ads = adsService.insertAds(inform,price,path+fileName,fileName);
+        return new JsonResult<Ads>(OK,ads);
     }
     public void saveFile(MultipartFile photo,String path)throws  IOException{
         File dir = new File(path);

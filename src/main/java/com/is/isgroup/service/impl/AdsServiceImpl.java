@@ -14,12 +14,14 @@ public class AdsServiceImpl implements AdsService {
 
 
     @Override
-    public void insertAds(String inform, Integer price, String photo) {
+    public Ads insertAds(String inform, Integer price, String photo,String photoName) {
         Ads ads = new Ads();
         ads.setInform(inform);
         ads.setPrice(price);
         ads.setPhoto(photo);
+        ads.setPhotoName(photoName);
         adsRepository.save(ads);
+        return ads;
     }
 
     @Override

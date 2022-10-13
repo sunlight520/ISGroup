@@ -10,10 +10,10 @@
 </head>
 <body>
 <div id="d">
-
+    <img id="pho">
 </div>
 <script>
-        let adsid=120;
+        let adsid=121;
         $.ajax({
             url: "/ads/getAdsById",
             type: "GET",
@@ -21,12 +21,14 @@
             dataType: "JSON",
             success: function(data) {
                 console.log(data)
-                var path = data.photo
-                $("#d").innerHTML="<img src = 'path' />"
-                alert("ok")
+                document.getElementById("pho").src="http://localhost:8080/"+data.data.photoName
+                // document.getElementById("pho").src="http://localhost:8080/"+"G1.jpg"
+                // alert(path)
+                // $("#d").innerHTML=" <img alt='tu' src="+path+"> "
+                // alert("ok")
             },
             error:function (data) {
-                alert("no")
+                // alert("no")
             }
         })
 </script>

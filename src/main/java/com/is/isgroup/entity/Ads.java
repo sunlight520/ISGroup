@@ -13,6 +13,40 @@ public class Ads {
     @Column(name = "price")
     Integer price;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ads)) return false;
+        Ads ads = (Ads) o;
+        return Objects.equals(getId(), ads.getId()) && Objects.equals(getPrice(), ads.getPrice()) && Objects.equals(getPhotoName(), ads.getPhotoName()) && Objects.equals(getInform(), ads.getInform()) && Objects.equals(getPhoto(), ads.getPhoto());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPrice(), getPhotoName(), getInform(), getPhoto());
+    }
+
+    @Override
+    public String toString() {
+        return "Ads{" +
+                "id=" + id +
+                ", price=" + price +
+                ", photoName='" + photoName + '\'' +
+                ", inform='" + inform + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+
+    @Column(name = "photoName")
+    String photoName;
     @Column(name = "inform")
     String inform;
     @Column(name = "photo")
@@ -24,29 +58,6 @@ public class Ads {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Ads)) return false;
-        Ads ads = (Ads) o;
-        return Objects.equals(getId(), ads.getId()) && Objects.equals(getPrice(), ads.getPrice()) && Objects.equals(getInform(), ads.getInform()) && Objects.equals(getPhoto(), ads.getPhoto());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getPrice(), getInform(), getPhoto());
-    }
-
-    @Override
-    public String toString() {
-        return "Ads{" +
-                "id=" + id +
-                ", price=" + price +
-                ", inform='" + inform + '\'' +
-                ", photo='" + photo + '\'' +
-                '}';
     }
 
     public Integer getId() {
