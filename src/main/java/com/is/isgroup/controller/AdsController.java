@@ -50,6 +50,7 @@ public class AdsController {
         System.out.println(path);
         saveFile(photo,path);
         return "上传成功";
+
     }
     public void saveFile(MultipartFile photo,String path)throws  IOException{
         File dir = new File(path);
