@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap3/js/holder.js"></script>
+    <link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+</head>
+<body>
+    <form  id="form-insert" action="insertAds.html" method="get" enctype="multipart/form-data" role="form">
+        <div >
+            <input name="inform" type="text"  placeholder="请输入信息">
+        </div>
+        <div >
+            <input name="photo" type="file">
+        </div>
+        <div >
+            <input name="price" type="text"  placeholder="请输入价格">
+        </div>
+        <div >
+            <input id="btn-insert"  type="button" value="提交" />
+        </div>
+    </form>
+
+<script type="text/javascript">
+    $("#btn-insert").click(function() {
+        $.ajax({
+            url: "/ads/insertAds",
+            type: "POST",
+            data: $("#form-insert").serialize(),
+            dataType: "json",
+            success: function(json) {
+                if (json.state == 200) {
+                    alert("成功！");
+                } else {
+                    alert("失败！" + json.message);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

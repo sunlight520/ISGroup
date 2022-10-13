@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>iHome</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/home.jpeg" type="image/x-icon"/>
+
+</head>
+<body>
+<!-- 登录/注册界面 -->
+<div class="wrapper">
+    <img src="../static/img/login_image.jpeg" style="width: 100%" alt="图片无法显示"/>
+    <!-- 登录表格 -->
+    <div class="login-container">
+        <div class="login-form">
+            <form>
+                <!-- 账户输入框 -->
+                <div class="account">
+                    <input
+                            type="text"
+                            placeholder="User name"
+                    />
+                </div>
+                <!-- 密码输入框 -->
+                <div class="password">
+                    <input type="password" placeholder="Password"/>
+                </div>
+                <!-- 登录按钮 -->
+                <a href="main.html"><input class="login" value="Log In"></a></form>
+            <!-- 注册跳转按钮 -->
+            <div class="to-register">
+                Don't have an iHome ID? <a href="#">Create yours now.</a>
+            </div>
+        </div>
+    </div>
+    <!-- 注册表格 -->
+    <div class="register-container">
+        <div class="back"><img src="../static/img/back.png" alt=""></div>
+        <div class="register-form">
+            <form>
+                <!-- 输入账户密码并确认密码 -->
+                <div><input class="register" type="text" placeholder="User name"></div>
+                <div><input class="register" type="password" placeholder="Password"></div>
+                <div><input class="register" type="password" placeholder="Comfirm Password"></div>
+                <!-- 选择身份  -->
+                <div class="choose"> Landlord or Tenant?<br>
+                    <input type="radio" checked=“checked” name="identity" id="identity-1"><label for="identity-1">Landlord</label>
+                    |
+                    <input type="radio" name="identity" id="identity-2"><label for="identity-2">Tenant</label></div>
+                <!-- 注册按钮 -->
+
+                <input type="submit" class="register-button" value="Register">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="../static/js/script.js"></script>
+</body>
+</html>

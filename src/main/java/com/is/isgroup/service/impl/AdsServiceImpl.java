@@ -1,0 +1,39 @@
+package com.is.isgroup.service.impl;
+
+import com.is.isgroup.dao.AdsRepository;
+import com.is.isgroup.entity.Ads;
+import com.is.isgroup.service.AdsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AdsServiceImpl implements AdsService {
+    @Autowired
+    AdsRepository adsRepository;
+    @Override
+    public void insertAds(Ads ads) {
+        adsRepository.save(ads);
+    }
+
+    @Override
+    public Ads getAdsById(Integer id) {
+        return adsRepository.getAdsById(id);
+
+    }
+
+    @Override
+    public void deleteAdsById(Integer id) {
+        adsRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateById(Ads ads) {
+        adsRepository.updateById(ads);
+    }
+
+//    @Override
+//    public void updateAdsById(Integer id,Ads ads) {
+//        ads.setId(id);
+//        adsRepository.save(ads);
+//    }
+}

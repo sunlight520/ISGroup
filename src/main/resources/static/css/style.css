@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444;
+  background-color: #f3f3f3;
+  height: 100vh;
+  padding: 2rem;
+  background-image: url(/static/img/login_background.jpeg);
+  background-size: cover;
+  overflow: hidden;
+}
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 480px;
+  margin: 150px auto;
+  background-color: #f3f3f3;
+}
+.account,
+.password {
+  width: 300px;
+  height: 60px;
+  margin: 20px 45px 20px;
+}
+
+.account input,
+.password input {
+  height: 50px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 2px 2px 0 #f2f2f2;
+  border-radius: 2px;
+  font-size: 16px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.login {
+  height: 60px;
+  width: 311px;
+  background-image: linear-gradient(to top left, #6ec8d4, #45c0ba);
+  text-align: center;
+  font-size: 18px;
+  line-height: 60px;
+  border: none;
+  margin: 10px 46px 20px;
+}
+.to-register {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+}
+.back img {
+  bottom: 300px;
+  left: 5px;
+  width: 20px;
+  position: absolute;
+}
+.register {
+  width: 300px;
+  height: 40px;
+  margin: 10px 45px;
+  padding-left: 10px;
+  border: 1px solid #cccccc;
+  box-shadow: inset 0 2px 2px 0 #f2f2f2;
+  border-radius: 2px;
+}
+.choose {
+  text-align: center;
+  font-size: 12px;
+}
+input[name="identity"] {
+  display: none;
+}
+input[name="identity"] + label {
+  background: transparent;
+  display: inline-block;
+  width: 86px;
+  height: 32px;
+  position: relative;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: center;
+  border: 1px solid #f4f4f4;
+  margin: 10px 40px;
+}
+input[name="identity"]:checked + label {
+  background-color: #bfa;
+  border: 1px solid #fff;
+}
+.register-button {
+  height: 40px;
+  width: 308px;
+  background-image: linear-gradient(to top left, #6ec8d4, #45c0ba);
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  border: none;
+  margin: 10px 49px 20px;
+}
+.register-container {
+  display: none;
+}
