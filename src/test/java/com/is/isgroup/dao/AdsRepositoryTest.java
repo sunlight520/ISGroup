@@ -18,6 +18,8 @@ public class AdsRepositoryTest {
         ads.setPrice(100);
         ads.setInform("第一个广告");
         ads.setPhoto("asd/asd.png");
+        ads.setPhotoName("asd");
+        ads.setPublishName("w");
         adsRepository.save(ads);
     }
 
@@ -50,7 +52,6 @@ public class AdsRepositoryTest {
     @Test
     public void updatePhotoTest(){
         String smm = "更改";
-
         adsRepository.updatePhotoById(87,smm);
     }
 }

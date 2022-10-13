@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AdsService {
-        Ads insertAds(String inform, Integer price, String photo,String photoName);
+        Ads insertAds(String inform, Integer price, String photo,String photoName,String publishName);
         Ads getAdsById(Integer id);
         void deleteAdsById(Integer id);
         void updateById(Ads ads);

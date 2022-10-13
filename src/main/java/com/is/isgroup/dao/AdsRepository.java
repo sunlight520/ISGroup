@@ -16,7 +16,7 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     void deleteById(Integer id);
     @Modifying
     @Transactional
-    @Query(value = "UPDATE t_ads  SET inform =:#{#ads.inform},photo_name=:#{#ads.photoName},photo=:#{#ads.photo} ,price =:#{#ads.price} where id=:#{#ads.id}",nativeQuery = true)
+    @Query(value = "UPDATE t_ads  SET inform =:#{#ads.inform},photo_name=:#{#ads.photoName},photo=:#{#ads.photo} ,price =:#{#ads.price},publish_name =:#{#ads.publishName} where id=:#{#ads.id}",nativeQuery = true)
     void updateById( @Param("ads") Ads ads);
 
     @Modifying

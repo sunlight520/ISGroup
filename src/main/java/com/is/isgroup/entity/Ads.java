@@ -8,22 +8,31 @@ import java.util.Objects;
 public class Ads {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    private Integer id;
 
     @Column(name = "price")
-    Integer price;
+    private Integer price;
+    @Column(name = "photo_name")
+    private String photoName;
+    @Column(name = "inform")
+    private String inform;
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "publish_name")
+    private String publishName;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ads)) return false;
         Ads ads = (Ads) o;
-        return Objects.equals(getId(), ads.getId()) && Objects.equals(getPrice(), ads.getPrice()) && Objects.equals(getPhotoName(), ads.getPhotoName()) && Objects.equals(getInform(), ads.getInform()) && Objects.equals(getPhoto(), ads.getPhoto());
+        return Objects.equals(getId(), ads.getId()) && Objects.equals(getPrice(), ads.getPrice()) && Objects.equals(getPhotoName(), ads.getPhotoName()) && Objects.equals(getInform(), ads.getInform()) && Objects.equals(getPhoto(), ads.getPhoto()) && Objects.equals(getPublishName(), ads.getPublishName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPrice(), getPhotoName(), getInform(), getPhoto());
+        return Objects.hash(getId(), getPrice(), getPhotoName(), getInform(), getPhoto(), getPublishName());
     }
 
     @Override
@@ -34,7 +43,16 @@ public class Ads {
                 ", photoName='" + photoName + '\'' +
                 ", inform='" + inform + '\'' +
                 ", photo='" + photo + '\'' +
+                ", publishName='" + publishName + '\'' +
                 '}';
+    }
+
+    public String getPublishName() {
+        return publishName;
+    }
+
+    public void setPublishName(String publishName) {
+        this.publishName = publishName;
     }
 
     public String getPhotoName() {
@@ -45,12 +63,7 @@ public class Ads {
         this.photoName = photoName;
     }
 
-    @Column(name = "photoName")
-    String photoName;
-    @Column(name = "inform")
-    String inform;
-    @Column(name = "photo")
-    String photo;
+
 
     public String getPhoto() {
         return photo;

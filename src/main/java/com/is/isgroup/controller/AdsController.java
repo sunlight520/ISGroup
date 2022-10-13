@@ -19,7 +19,7 @@ public class AdsController {
     @Autowired
     private AdsService adsService;
     @RequestMapping("insertAds")
-    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo)throws IOException{
+    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,String publishName)throws IOException{
         File file = new File("");
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
@@ -27,7 +27,7 @@ public class AdsController {
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
-        Ads ads = adsService.insertAds(inform,price,path+fileName,fileName);
+        Ads ads = adsService.insertAds(inform,price,path+fileName,fileName,publishName);
         return new JsonResult<Ads>(OK,ads);
     }
     public void saveFile(MultipartFile photo,String path)throws  IOException{
