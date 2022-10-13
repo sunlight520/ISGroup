@@ -6,6 +6,8 @@ import com.is.isgroup.service.AdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdsServiceImpl implements AdsService {
     @Autowired
@@ -45,6 +47,11 @@ public class AdsServiceImpl implements AdsService {
     public void uploadPhoto(Integer id, String photo) {
 //        Ads ads = adsRepository.getAdsById(id);
        System.out.println(adsRepository.updatePhotoById(id,photo));
+    }
+
+    @Override
+    public List<Ads> getAllAds() {
+        return adsRepository.findAll();
     }
 
 //    @Override

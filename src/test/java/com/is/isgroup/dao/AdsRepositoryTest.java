@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class AdsRepositoryTest {
@@ -23,6 +25,11 @@ public class AdsRepositoryTest {
         adsRepository.save(ads);
     }
 
+    @Test
+    public void getAll(){
+        List<Ads> list = adsRepository.findAll();
+        System.out.println(list);
+    }
 //    @Test
 //    public void updateAdsTest(){
 //        Ads ads = new Ads();

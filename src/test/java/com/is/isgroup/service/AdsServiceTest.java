@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class AdsServiceTest {
@@ -24,6 +26,11 @@ public class AdsServiceTest {
     public void getAdsByIdTest(){
         Ads ads = adsService.getAdsById(67);
         System.out.println(ads);
+    }
+    @Test
+    public void getAllAds(){
+        List<Ads> adsList = adsService.getAllAds();
+        System.out.println(adsList);
     }
     @Test
     public void deleteAdsByIdTest(){

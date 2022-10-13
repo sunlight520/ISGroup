@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository(value = "adsRepository")
 public interface AdsRepository extends JpaRepository<Ads,Integer> {
@@ -18,6 +19,9 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     @Transactional
     @Query(value = "UPDATE t_ads  SET inform =:#{#ads.inform},photo_name=:#{#ads.photoName},photo=:#{#ads.photo} ,price =:#{#ads.price},publish_name =:#{#ads.publishName} where id=:#{#ads.id}",nativeQuery = true)
     void updateById( @Param("ads") Ads ads);
+
+    @Override
+    List<Ads> findAll();
 
     @Modifying
     @Transactional

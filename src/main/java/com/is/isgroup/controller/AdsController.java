@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ads")
@@ -45,6 +46,11 @@ public class AdsController {
         Ads ads = adsService.getAdsById(id);
         System.out.println(ads);
         return new JsonResult<>(OK,ads);
+    }
+    @RequestMapping("getAllAds")
+    public JsonResult<List> getAllAds(){
+        List<Ads> AllAds = adsService.getAllAds();
+        return new JsonResult<List>(OK,AllAds);
     }
     @RequestMapping("deleteAdsById")
     public JsonResult<Ads> deleteAdsById(Integer id){
