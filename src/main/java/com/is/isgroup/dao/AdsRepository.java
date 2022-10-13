@@ -19,6 +19,8 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     @Query(value = "UPDATE t_ads  SET inform =:#{#ads.inform},photo=:#{#ads.photo} ,price =:#{#ads.price} where id=:#{#ads.id}",nativeQuery = true)
     void updateById( @Param("ads") Ads ads);
 
-
-
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE t_ads  SET photo=:#{#photo} where id=:#{#aid}",nativeQuery = true)
+    Integer updatePhotoById(@Param("aid") Integer id,String photo);
 }

@@ -10,8 +10,15 @@ import org.springframework.stereotype.Service;
 public class AdsServiceImpl implements AdsService {
     @Autowired
     AdsRepository adsRepository;
+
+
+
     @Override
-    public void insertAds(Ads ads) {
+    public void insertAds(String inform, Integer price, String photo) {
+        Ads ads = new Ads();
+        ads.setInform(inform);
+        ads.setPrice(price);
+        ads.setPhoto(photo);
         adsRepository.save(ads);
     }
 
@@ -29,6 +36,12 @@ public class AdsServiceImpl implements AdsService {
     @Override
     public void updateById(Ads ads) {
         adsRepository.updateById(ads);
+    }
+
+    @Override
+    public void uploadPhoto(Integer id, String photo) {
+//        Ads ads = adsRepository.getAdsById(id);
+       System.out.println(adsRepository.updatePhotoById(id,photo));
     }
 
 //    @Override

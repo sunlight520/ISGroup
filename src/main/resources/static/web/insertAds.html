@@ -9,12 +9,12 @@
     <script src="../bootstrap3/js/bootstrap.js"></script>
 </head>
 <body>
-    <form  id="form-insert" action="insertAds.html" method="get" enctype="multipart/form-data" role="form">
+    <form  id="form-insert" action="insertAds.html" method="post" enctype="multipart/form-data" role="form">
         <div >
             <input name="inform" type="text"  placeholder="请输入信息">
         </div>
         <div >
-            <input name="photo" type="file">
+            <input name="photo" id="photo" type="file">
         </div>
         <div >
             <input name="price" type="text"  placeholder="请输入价格">
@@ -23,22 +23,41 @@
             <input id="btn-insert"  type="button" value="提交" />
         </div>
     </form>
-
 <script type="text/javascript">
     $("#btn-insert").click(function() {
+        let formData = new FormData(document.getElementById('form-insert'));
         $.ajax({
             url: "/ads/insertAds",
-            type: "POST",
-            data: $("#form-insert").serialize(),
-            dataType: "json",
+            type: "GET",
+            data: formData,
+            cache:false,
+            processData:false,
+            contentType:false,
+            dataType: "JSON",
             success: function(json) {
-                if (json.state == 200) {
-                    alert("成功！");
-                } else {
-                    alert("失败！" + json.message);
-                }
+                alert("ok")
+            },
+            error:function (json) {
+                alert("no")
             }
         });
+        // let formData = new FormData(document.getElementById('form-insert'));
+        // $.ajax({
+        //     url: "/ads/upload",
+        //     type: "POST",
+        //     data: formData,
+        //     cache:false,
+        //     processData:false,
+        //     contentType:false,
+        //     success: function(json) {
+        //         alert("成功")
+        //         console.log(formData);
+        //     },
+        //     error:function (json) {
+        //         alert("失败")
+        //         console.log(formData);
+        //     }
+        // });
     });
 </script>
 </body>

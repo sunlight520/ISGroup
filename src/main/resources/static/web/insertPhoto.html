@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  id="form-insert" action="insertPhoto.html" method="post" enctype="multipart/form-data" role="form">
+  <div >
+    <input name="photo" id="photo" type="file">
+  </div>
+  <div >
+    <input id="btn-insert"  type="button" value="提交" />
+  </div>
+</form>
+<script type="text/javascript">
+  $("#btn-insert").click(function() {
+    // var formdata = new FormData($("#photo"))
+    let formData = new FormData(document.getElementById('photo'));
+    alert(formData)
+    // data.append("nickname")
+    $.ajax({
+      url: "/ads/uploadPhoto",
+      type: "POST",
+      data: formData,
+      dataType:"JSON",
+      cache:false,
+      processData:false,
+      contentType:false,
+      success: function(json) {
+        alert("成功")
+        console.log(formData);
+      },
+      error:function (json) {
+        alert("失败")
+        console.log(formData);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -47,4 +47,10 @@ public class AdsRepositoryTest {
         ads.setId(53);
         adsRepository.updateById(ads);
     }
+    @Test
+    public void updatePhotoTest(){
+        String smm = "更改";
+
+        adsRepository.updatePhotoById(87,smm);
+    }
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap3/js/holder.js"></script>
+    <link href="../bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/js/bootstrap.js"></script>
+</head>
+<body>
+<div id="d">
+
+</div>
+<script>
+        let adsid=120;
+        $.ajax({
+            url: "/ads/getAdsById",
+            type: "GET",
+            data:{id:adsid},
+            dataType: "JSON",
+            success: function(data) {
+                console.log(data)
+                var path = data.photo
+                $("#d").innerHTML="<img src = 'path' />"
+                alert("ok")
+            },
+            error:function (data) {
+                alert("no")
+            }
+        })
+</script>
+</body>
+</html>

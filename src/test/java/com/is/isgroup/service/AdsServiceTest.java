@@ -19,7 +19,6 @@ public class AdsServiceTest {
         ads.setPrice(888);
         ads.setInform("啦啦");
         ads.setPhoto("photo.png");
-        adsService.insertAds(ads);
     }
     @Test
     public void getAdsByIdTest(){
@@ -30,5 +29,9 @@ public class AdsServiceTest {
     public void deleteAdsByIdTest(){
         adsService.deleteAdsById(66);
 
+    }
+    @Test
+    public void uploadPhotoTest(){
+        adsService.uploadPhoto(76,"hhhh");
     }
 }
