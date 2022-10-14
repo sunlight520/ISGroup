@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>create/update</title>
-    <link rel="stylesheet" href="/static/css/style2.css" />
+    <link rel="stylesheet" href="../css/style2.css" />
+      <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
   </head>
   <body>
     <header>
       <nav class="nav">
         <a class="nav__logo" href="main.html"></a>
-        <a class="btn-2" href="/templates/login.html"
+        <a class="btn-2" href="/web/login.html"
           ><button class="btn">Log out</button></a
         >
       </nav>
@@ -19,16 +20,50 @@
     <div class="adBoard-wrapper">
       <div class="create-form">
         <form action="#">
-          Price:<input type="number" /> location<input type="text" />
-          Notes:<textarea>
+            Price:<input id="price"type="number" />
+            Location:<input id="location" type="text" />
+            Notes:<textarea id="notes">
 You can write something you want to say to the tenant </textarea
           >
 
-          Picture:<input type="file" accept=”image/*“ />
-          <input type="submit" class="create-button" value="Submit" />
+          Picture:<input id="picture"type="file" accept=”image/*“ />
+          <input type="button" class="create-button" value="Submit" onclick="add()"/>
         </form>
       </div>
-      c
+
     </div>
+  <script>
+      function add() {
+          let price = $("#price").val();
+          console.log(price);
+          let location = $("#location").val();
+          let notes = $("#notes").val();
+          let picture = new FormData($("#picture"));
+          const houseData = {
+              "price": price,
+              "location": location,
+              "notes": notes,
+          };
+
+          $.ajax({
+              url: "/ads/insertAds",
+              type: "post",
+              data: houseData,
+              async: true,
+              dataType: "json",
+              success: function (data) {
+                  if (data.code == 200) {
+                      alert("SUCCESS!");
+                  } else {
+                      alert(data.message);
+                  }
+              },
+              error: function () {
+
+                  alert('ERROR');
+              }
+          })
+      }
+  </script>
   </body>
 </html>

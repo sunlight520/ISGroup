@@ -47,7 +47,7 @@ html {
 }
 
 .nav__logo {
-  background-image: url(static/img/home.jpeg);
+  background-image: url(../img/home.jpeg);
   height: 50px;
   width: 50px;
 }
@@ -99,7 +99,10 @@ html {
   height: 909px;
 }
 .adBoard {
+
   box-shadow: inset 0px 0px 2px 1px;
+  width: 1100px;
+  height: 800px;
 }
 
 .content {
@@ -149,14 +152,17 @@ html {
 .position {
   left: 300px;
   top: 215px;
-  position: absolute;
+  position: fixed;
+
   font-size: 15px;
   color: #555151;
+  background-color: #1a3dc1;
 }
 ul.pagination {
+
   display: inline-block;
   padding: 0;
-  margin: 50px 180px;
+  margin: 20px 180px;
 }
 
 ul.pagination li {
@@ -283,7 +289,7 @@ form:first-child {
   background-color: tomato;
 }
 .add-new {
-  background-image: url(static/img/add.png);
+  background-image: url(../img/add.png);
   width: 150px;
   height: 150px;
   border-radius: 50%;

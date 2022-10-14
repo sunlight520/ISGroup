@@ -48,9 +48,9 @@ public class AdsController {
         return new JsonResult<>(OK,ads);
     }
     @RequestMapping("getAllAds")
-    public JsonResult<List> getAllAds(){
+    public JsonResult<List<Ads>> getAllAds(){
         List<Ads> AllAds = adsService.getAllAds();
-        return new JsonResult<List>(OK,AllAds);
+        return new JsonResult<List<Ads>>(OK,AllAds);
     }
     @RequestMapping("deleteAdsById")
     public JsonResult<Ads> deleteAdsById(Integer id){
