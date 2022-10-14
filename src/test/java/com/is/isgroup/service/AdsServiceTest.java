@@ -41,4 +41,9 @@ public class AdsServiceTest {
     public void uploadPhotoTest(){
         adsService.uploadPhoto(76,"hhhh");
     }
+    @Test
+    public void findAdsByPageNumber(){
+        List<Ads> adsList = adsService.findAdsByPageNumber(5);
+        System.out.println(adsList);
+    }
 }

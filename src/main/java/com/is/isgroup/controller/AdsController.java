@@ -49,12 +49,8 @@ public class AdsController extends BaseController{
         return new JsonResult<Ads>(OK,ads);
     }
     @RequestMapping("getAdsByPageNumber")
-    public JsonResult<List<Ads>> getAdsByPageNumber(Integer id){
-        int beginId = 2*id;
-        List<Ads> adsList = new ArrayList<>();
-        for (int i=0;i<3;i++){
-            adsList.add(adsService.getAdsById(beginId+i));
-        }
+    public JsonResult<List<Ads>> getAdsByPageNumber(Integer number){
+        List<Ads> adsList = adsService.findAdsByPageNumber(number);
         return new JsonResult<List<Ads>>(OK,adsList);
     }
     @RequestMapping("getAllAds")

@@ -105,8 +105,8 @@
       let preData = $(".adBoard");
       let temp = '';
       $.ajax({
-        url: "/ads/getAllAds",
-        type: "get",
+        url: "/ads/getAdsByPageNumber"+"?id=1",
+        type: "GET",
         dataType: "json",
         async: true,
         success: function (data){

@@ -13,5 +13,6 @@ public interface AdsService {
         void updateById(Ads ads);
         void uploadPhoto(Integer id,String photo);
         List<Ads> getAllAds();
+        List<Ads> findAdsByPageNumber(Integer number);
 
 }

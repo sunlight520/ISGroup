@@ -61,4 +61,9 @@ public class AdsRepositoryTest {
         String smm = "更改";
         adsRepository.updatePhotoById(87,smm);
     }
+    @Test
+    public void findAdsByPageNumber(){
+        List<Ads> adsList = adsRepository.findAdsByPageNumber(3);
+        System.out.println(adsList);
+    }
 }

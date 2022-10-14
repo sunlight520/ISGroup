@@ -54,6 +54,11 @@ public class AdsServiceImpl implements AdsService {
         return adsRepository.findAll();
     }
 
+    @Override
+    public List<Ads> findAdsByPageNumber(Integer number) {
+        return adsRepository.findAdsByPageNumber(number);
+    }
+
 //    @Override
 //    public void updateAdsById(Integer id,Ads ads) {
 //        ads.setId(id);
