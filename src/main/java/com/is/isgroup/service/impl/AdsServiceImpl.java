@@ -39,8 +39,16 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public void updateById(Ads ads) {
-        adsRepository.updateById(ads);
+    public Ads updateById(Integer id,String inform, Integer price, String photo,String photoName,String publishName) {
+        Ads ads = new Ads();
+        ads.setId(id);
+        ads.setInform(inform);
+        ads.setPrice(price);
+        ads.setPhoto(photo);
+        ads.setPhotoName(photoName);
+        ads.setPublishName(publishName);
+        adsRepository.save(ads);
+        return ads;
     }
 
     @Override

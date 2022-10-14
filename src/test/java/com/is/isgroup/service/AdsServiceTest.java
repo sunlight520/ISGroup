@@ -42,8 +42,18 @@ public class AdsServiceTest {
         adsService.uploadPhoto(76,"hhhh");
     }
     @Test
-    public void findAdsByPageNumber(){
+    public void findAdsByPageNumberTest(){
         List<Ads> adsList = adsService.findAdsByPageNumber(5);
         System.out.println(adsList);
     }
+    @Test
+    public void updateByIdTest(){
+        adsService.updateById(18,
+                "okooo",
+                999,
+                "hh.hh",
+                "照片名字",
+                "发布者名字");
+    }
+
 }

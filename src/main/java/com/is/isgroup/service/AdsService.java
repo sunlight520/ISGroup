@@ -10,7 +10,7 @@ public interface AdsService {
         Ads insertAds(String inform, Integer price, String photo,String photoName,String publishName);
         Ads getAdsById(Integer id);
         void deleteAdsById(Integer id);
-        void updateById(Ads ads);
+        Ads updateById(Integer id,String inform, Integer price, String photo,String photoName,String publishName);
         void uploadPhoto(Integer id,String photo);
         List<Ads> getAllAds();
         List<Ads> findAdsByPageNumber(Integer number);
