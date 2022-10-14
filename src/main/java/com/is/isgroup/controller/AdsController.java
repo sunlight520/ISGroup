@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,10 +48,19 @@ public class AdsController extends BaseController{
         System.out.println(ads);
         return new JsonResult<Ads>(OK,ads);
     }
+    @RequestMapping("getAdsByPageNumber")
+    public JsonResult<List<Ads>> getAdsByPageNumber(Integer id){
+        int beginId = 2*id;
+        List<Ads> adsList = new ArrayList<>();
+        for (int i=0;i<3;i++){
+            adsList.add(adsService.getAdsById(beginId+i));
+        }
+        return new JsonResult<List<Ads>>(OK,adsList);
+    }
     @RequestMapping("getAllAds")
-    public JsonResult<List> getAllAds(){
+    public JsonResult<List<Ads>> getAllAds(){
         List<Ads> AllAds = adsService.getAllAds();
-        return new JsonResult<List>(OK,AllAds);
+        return new JsonResult<List<Ads>>(OK,AllAds);
     }
     @RequestMapping("deleteAdsById")
     public JsonResult<Ads> deleteAdsById(Integer id){

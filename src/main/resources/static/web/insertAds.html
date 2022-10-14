@@ -28,7 +28,7 @@
         let formData = new FormData(document.getElementById('form-insert'));
         $.ajax({
             url: "/ads/insertAds",
-            type: "GET",
+            type: "POST",
             data: formData,
             cache:false,
             processData:false,
