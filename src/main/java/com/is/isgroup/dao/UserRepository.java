@@ -9,5 +9,6 @@ import java.util.List;
 @Repository(value = "userRepository")
 public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> getByNameAndAge(String name, int age);
+
 }
 
