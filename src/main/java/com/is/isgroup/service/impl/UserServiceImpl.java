@@ -3,6 +3,7 @@ package com.is.isgroup.service.impl;
 import com.is.isgroup.dao.UserRepository;
 import com.is.isgroup.entity.User;
 import com.is.isgroup.service.UserService;
+import com.is.isgroup.util.JsonResult;
 import com.is.isgroup.util.Result;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +16,14 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public Result saveUser(User user) {
-        User save = userRepository.save(user);
-        return new Result(save);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public Result queryAll() {
-        List<User> list = userRepository.findAll();
-        return new Result(list);
+    public List<User> queryAll() {
+        return userRepository.findAll();
     }
 
-    @Override
-    public Result getByNameAndAge(String name, int age) {
-        List <User> list = userRepository.getByNameAndAge(name, age);
-        return new Result(list);
-    }
 }
 

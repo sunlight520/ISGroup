@@ -15,8 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ads")
-public class AdsController {
-    public static final int OK = 200;
+public class AdsController extends BaseController{
+
     @Autowired
     private AdsService adsService;
     @RequestMapping("insertAds")
@@ -45,7 +45,7 @@ public class AdsController {
     public JsonResult<Ads> getAdsById(Integer id){
         Ads ads = adsService.getAdsById(id);
         System.out.println(ads);
-        return new JsonResult<>(OK,ads);
+        return new JsonResult<Ads>(OK,ads);
     }
     @RequestMapping("getAllAds")
     public JsonResult<List> getAllAds(){
@@ -60,7 +60,7 @@ public class AdsController {
     @RequestMapping("updateById")
     public JsonResult<Ads> updateById(Ads ads){
         adsService.updateById(ads);
-        return new JsonResult<>(OK,ads);
+        return new JsonResult<Ads>(OK,ads);
     }
 
 

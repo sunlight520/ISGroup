@@ -18,4 +18,9 @@ public class UserRepositoryTest {
         user.setName("LXP");
         userRepository.save(user);
     }
+    @Test
+    public void deleteUserTest(){
+        userRepository.deleteById(9);
+    }
+
 }
