@@ -7,6 +7,7 @@ import java.util.List;
 public class JsonResult<E> implements Serializable {
     private Integer state;
     private String message;
+    private  Integer num;
     private List<E> list;
     private E data;
     public JsonResult(){
@@ -35,6 +36,19 @@ public class JsonResult<E> implements Serializable {
         this.state = state;
         this.data = data;
     }
+
+    public JsonResult(Integer state, Integer num, List<E> list) {
+        this.state = state;
+        this.num = num;
+        this.list = list;
+    }
+
+    public JsonResult(Integer state, List<E> list, E data) {
+        this.state = state;
+        this.list = list;
+        this.data = data;
+    }
+
 
     public Integer getState() {
         return state;

@@ -1,6 +1,7 @@
 package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.Ads;
+import com.is.isgroup.entity.ListAndNumber;
 import com.is.isgroup.service.AdsService;
 import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,20 @@ public class AdsController extends BaseController{
     }
 //    获取分页广告的接口
     @RequestMapping("getAdsByPageNumber")
-    public JsonResult<List<Ads>> getAdsByPageNumber(Integer number){
+    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer number){
         List<Ads> adsList = adsService.findAdsByPageNumber(number);
-        return new JsonResult<List<Ads>>(OK,adsList);
+        List<Ads> AllAds = adsService.getAllAds();
+        Integer allAdsNumber = AllAds.size();
+        ListAndNumber listAndNumber = new ListAndNumber();
+        listAndNumber.setAdsList(adsList);
+        listAndNumber.setAllAdsNumber(allAdsNumber);
+        return new JsonResult<>(OK,listAndNumber);
     }
 //    获取所有广告的接口
     @RequestMapping("getAllAds")
     public JsonResult<List<Ads>> getAllAds(){
         List<Ads> AllAds = adsService.getAllAds();
+
         return new JsonResult<List<Ads>>(OK,AllAds);
     }
 //    删除广告的接口
