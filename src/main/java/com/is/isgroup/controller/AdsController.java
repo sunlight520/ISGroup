@@ -25,7 +25,7 @@ public class AdsController extends BaseController{
     private AdsService adsService;
 //    插入单条广告的接口
     @RequestMapping("insertAds")
-    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,String publishName)throws IOException{
+    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,String publishName,HttpSession session)throws IOException{
         File file = new File("");
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
@@ -77,8 +77,9 @@ public class AdsController extends BaseController{
     }
 //    更新广告的接口
     @RequestMapping("updateById")
-    public JsonResult<Ads> updateById(Integer id,String inform, Integer price,String publishName,MultipartFile photo) throws IOException {
+    public JsonResult<Ads> updateById(String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
         File file = new File("");
+        Integer id = getIdFromSession(session);
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
         String fileName = photo.getOriginalFilename();
