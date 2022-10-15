@@ -2,9 +2,7 @@ package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.ListAndNumber;
-import com.is.isgroup.entity.User;
 import com.is.isgroup.service.AdsService;
-import com.is.isgroup.service.UserService;
 import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +31,7 @@ public class AdsController extends BaseController{
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
+        publishName="user";
         Ads ads = adsService.insertAds(inform,price,path+fileName,fileName,publishName);
         return new JsonResult<Ads>(OK,ads);
     }

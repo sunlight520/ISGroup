@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>create/update</title>
     <link rel="stylesheet" href="../css/style2.css" />
-      <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+
   </head>
   <body>
     <header>
@@ -19,51 +20,44 @@
     </header>
     <div class="adBoard-wrapper">
       <div class="create-form">
-        <form action="#">
-            Price:<input id="price"type="number" />
-            Location:<input id="location" type="text" />
-            Notes:<textarea id="notes">
-You can write something you want to say to the tenant </textarea
-          >
+        <form  id="form-insert" action="insertAds.html" method="post" enctype="multipart/form-data" role="form">
 
-          Picture:<input id="picture"type="file" accept=”image/*“ />
-          <input type="button" class="create-button" value="Submit" onclick="add()"/>
+            Price:<input  name="price" type="number" />
+
+<!--            Location:<input  name="" type="text" />-->
+
+            Information:<textarea name="inform" > </textarea>
+
+            Picture:<input name="photo" type="file" accept=”image/*“ />
+
+           <input type="button" class="create-button" value="Submit" />
         </form>
       </div>
 
     </div>
-  <script>
-      function add() {
-          let price = $("#price").val();
-          console.log(price);
-          let location = $("#location").val();
-          let notes = $("#notes").val();
-          let picture = new FormData($("#picture"));
-          const houseData = {
-              "price": price,
-              "location": location,
-              "notes": notes,
-          };
 
+
+  <script>
+      $(".create-button").click(function() {
+          let formData = new FormData(document.getElementById('form-insert'));
+          console.log(formData)
           $.ajax({
               url: "/ads/insertAds",
-              type: "post",
-              data: houseData,
-              async: true,
-              dataType: "json",
-              success: function (data) {
-                  if (data.code == 200) {
-                      alert("SUCCESS!");
-                  } else {
-                      alert(data.message);
-                  }
+              type: "POST",
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              dataType: "JSON",
+              success: function (json) {
+                  alert("SUCCESS!")
+                location.reload();
               },
-              error: function () {
-
-                  alert('ERROR');
+              error: function (json) {
+                  alert("SOMETHING WRONG!")
               }
-          })
-      }
+          });
+      });
   </script>
   </body>
 </html>

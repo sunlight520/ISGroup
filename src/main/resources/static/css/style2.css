@@ -107,7 +107,7 @@ html {
 
 .content {
   position: relative;
-  height: 250px;
+  height: 33.333333%;
   border-bottom: 1px solid rgb(194, 184, 184);
 }
 .user {
@@ -152,17 +152,17 @@ html {
 .position {
   left: 300px;
   top: 215px;
-  position: fixed;
-
+  position: absolute;
   font-size: 15px;
   color: #555151;
-  background-color: #1a3dc1;
+
 }
 ul.pagination {
 
   display: inline-block;
   padding: 0;
-  margin: 20px 180px;
+  margin: 20px 400px;
+
 }
 
 ul.pagination li {
@@ -180,6 +180,15 @@ ul.pagination li a {
 ul.pagination li a.active {
   background-color: #4caf50;
   color: white;
+}
+ul.pagination li:last-child{
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  width: 100px;
+
 }
 
 ul.pagination li a:hover:not(.active) {
@@ -206,6 +215,12 @@ ul.pagination li a:hover:not(.active) {
 }
 .back img {
   bottom: 260px;
+  left: 8px;
+  width: 20px;
+  position: absolute;
+}
+.back-2 img {
+  bottom: 380px;
   left: 8px;
   width: 20px;
   position: absolute;
@@ -321,4 +336,38 @@ form textarea {
   line-height: 40px;
   border: none;
   margin: 10px -10px;
+}
+.edit-form{font-size: 10px;
+}
+
+.edit-container {
+  font-size: 15px;
+ background-color: #bfa;
+  position: absolute;
+  top: 300px;
+  left: 760px;
+}
+.edit-button {
+  height: 40px;
+  width: 300px;
+  background-image: linear-gradient(to top left, #6ec8d4, #45c0ba);
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  border: none;
+  margin: 10px 44px 20px;
+}
+#myForm {
+padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  font-size: 30px;
+}
+#myForm input {
+
+  height: 50px;
+}
+#myForm  textarea {
+  height: 200px;
 }
