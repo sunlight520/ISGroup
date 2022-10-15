@@ -9,5 +9,6 @@ import java.util.List;
 public interface UserService {
     User saveUser(User user);
     List<User> queryAll();
-
+    User findUserById(Integer id);
+    User findUserByName(String name);
 }

@@ -18,9 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private int age;
     private String password;
-    private Integer isDelete;
+    private Integer isLandlord;
     private String salt ;
-
 }

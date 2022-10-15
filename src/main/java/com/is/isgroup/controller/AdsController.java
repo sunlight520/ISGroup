@@ -2,7 +2,9 @@ package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.ListAndNumber;
+import com.is.isgroup.entity.User;
 import com.is.isgroup.service.AdsService;
+import com.is.isgroup.service.UserService;
 import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +53,8 @@ public class AdsController extends BaseController{
     }
 //    获取分页广告的接口
     @RequestMapping("getAdsByPageNumber")
-    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer number){
-        List<Ads> adsList = adsService.findAdsByPageNumber(number);
+    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer id){
+        List<Ads> adsList = adsService.findAdsByPageNumber(id);
         List<Ads> AllAds = adsService.getAllAds();
         Integer allAdsNumber = AllAds.size();
         ListAndNumber listAndNumber = new ListAndNumber();

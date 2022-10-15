@@ -15,9 +15,13 @@ public class UserServiceTest {
     @Test
     public void saveTest(){
             User user = new User();
-            user.setAge(18);
-            user.setName("LXP");
+            user.setName("LXPoo1");
             userService.saveUser(user);
 
+    }
+    @Test
+    public void findUserByIdTest(){
+        User user = userService.findUserById(14);
+        System.out.println(user);
     }
 }
