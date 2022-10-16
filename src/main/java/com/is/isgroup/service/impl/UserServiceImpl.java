@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String name, String password) {
+    public User login(String username, String password) {
         // 调用userMapper的findByUsername()方法，根据参数username查询用户数据
-        User result = userRepository.findUserByUsername(name);
+        User result = userRepository.findUserByUsername(username);
         // 判断查询结果是否为null
         if (result == null) {
             // 是：抛出UserNotFoundException异常
