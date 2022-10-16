@@ -53,7 +53,8 @@ public class AdsRepositoryTest {
         ads.setInform("更改内容");
         ads.setPhoto("这是一个照片");
         ads.setPrice(9999);
-        ads.setId(53);
+        ads.setId(113);
+        ads.setPublishName("名字");
         adsRepository.updateById(ads);
     }
     @Test

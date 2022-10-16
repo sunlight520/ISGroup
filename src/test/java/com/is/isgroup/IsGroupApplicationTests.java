@@ -17,7 +17,7 @@ class IsGroupApplicationTests {
     @Test
     void saveTest(){
         User user = new User();
-        user.setName("LXP");
+        user.setUsername("LXP");
         userRepository.save(user);
     }
 }
