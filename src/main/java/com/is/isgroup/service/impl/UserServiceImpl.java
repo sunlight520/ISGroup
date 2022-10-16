@@ -19,9 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        String username = user.getName();
+        String username = user.getUsername();
         // 调用持久层的User findByUsername(String username)方法，根据用户名查询用户数据
-        User result = userRepository.findUserByName(username);
+        User result = userRepository.findUserByUsername(username);
         // 判断查询结果是否不为null
         if (result != null) {
             // 是：表示用户名已被占用，则抛出UsernameDuplicateException异常
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String name, String password) {
         // 调用userMapper的findByUsername()方法，根据参数username查询用户数据
-        User result = userRepository.findUserByName(name);
+        User result = userRepository.findUserByUsername(name);
         // 判断查询结果是否为null
         if (result == null) {
             // 是：抛出UserNotFoundException异常
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         // 将查询结果中的uid、username、avatar封装到新的user对象中
         user.setId(result.getId());
-        user.setName(result.getName());
+        user.setUsername(result.getUsername());
         // 返回新的user对象
         return user;
     }
@@ -73,9 +73,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByName(String name) {
-        return userRepository.findUserByName(name);
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
+
+    @Override
+    public Integer updatePasswordByUsername(String username, String password) {
+        return userRepository.updatePasswordByUsername(username,password);
+    }
+
     private String getMD5Password(String password,String salt){
         for (int i=0;i<3;i++){
             password = DigestUtils.md5DigestAsHex((salt+password+salt).getBytes()).toUpperCase();

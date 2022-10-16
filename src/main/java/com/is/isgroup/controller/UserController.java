@@ -24,16 +24,22 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/login")
-    public JsonResult<User> login(String name, String password, HttpSession session) {
+    public JsonResult<User> login(String username, String password, HttpSession session) {
         // 调用业务对象的方法执行登录，并获取返回值
-        User data = userService.login(name, password);
+        User data = userService.login(username, password);
         //登录成功后，将uid和username存入到HttpSession中
         session.setAttribute("id", data.getId());
-        session.setAttribute("name", data.getName());
+        session.setAttribute("name", data.getUsername());
          System.out.println("Session中的id=" + getIdFromSession(session));
          System.out.println("Session中的username=" + getUsernameFromSession(session));
         // 将以上返回值和状态码OK封装到响应结果中并返回
         return new JsonResult<User>(OK, data);
+    }
+    @RequestMapping("/updatePassword")
+    public JsonResult<Void> updatePassword(String password,HttpSession session){
+            String username = getUsernameFromSession(session);
+            userService.updatePasswordByUsername(username,password);
+            return new JsonResult<>(OK);
     }
 
 }

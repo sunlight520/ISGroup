@@ -8,9 +8,10 @@ import java.util.List;
 @Service
 public interface UserService {
     User saveUser(User user);
-    User login(String name, String password);
+    User login(String username, String password);
 
     List<User> queryAll();
     User findUserById(Integer id);
-    User findUserByName(String name);
+    User findUserByUsername(String username);
+    Integer updatePasswordByUsername(String username,String password);
 }
