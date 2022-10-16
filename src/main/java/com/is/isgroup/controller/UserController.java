@@ -7,6 +7,7 @@ import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,16 +18,23 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
     @RequestMapping("/saveUser")
-
     public JsonResult<User> saveUser(User user){
         User user1 = userService.saveUser(user);
         return new JsonResult<User>(OK,user1);
     }
-//    @GetMapping("/queryAllUser")
-//    public JsonResult<List> queryAll(){
-//        List<User> userList =userService.queryAll();
-//        return new JsonResult<List>(OK,userList);
-//    }
+
+    @RequestMapping("/login")
+    public JsonResult<User> login(String name, String password, HttpSession session) {
+        // 调用业务对象的方法执行登录，并获取返回值
+        User data = userService.login(name, password);
+        //登录成功后，将uid和username存入到HttpSession中
+        session.setAttribute("id", data.getId());
+        session.setAttribute("name", data.getName());
+         System.out.println("Session中的id=" + getIdFromSession(session));
+         System.out.println("Session中的username=" + getUsernameFromSession(session));
+        // 将以上返回值和状态码OK封装到响应结果中并返回
+        return new JsonResult<User>(OK, data);
+    }
 
 }
 
