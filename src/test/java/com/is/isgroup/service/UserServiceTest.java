@@ -27,6 +27,5 @@ public class UserServiceTest {
     }
     @Test
     public void updatePasswordTest(){
-        userService.updatePasswordByUsername("LXSoo","LoveLXPoo");
     }
 }

@@ -2,6 +2,7 @@ package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.User;
 import com.is.isgroup.service.UserService;
+import com.is.isgroup.service.ex.PasswordNotMatchException;
 import com.is.isgroup.service.ex.UsernameDuplicatedException;
 import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class UserController extends BaseController{
         return new JsonResult<User>(OK, data);
     }
     @RequestMapping("/updatePassword")
-    public JsonResult<Void> updatePassword(String password,HttpSession session){
+    public JsonResult<Void> updatePassword(String oldPassword,String password,HttpSession session){
             String username = getUsernameFromSession(session);
-            userService.updatePasswordByUsername(username,password);
+            userService.updatePasswordByUsername(username,password,oldPassword);
             return new JsonResult<>(OK);
     }
 

@@ -13,5 +13,5 @@ public interface UserService {
     List<User> queryAll();
     User findUserById(Integer id);
     User findUserByUsername(String username);
-    Integer updatePasswordByUsername(String username,String password);
+    Integer updatePasswordByUsername(String username,String oldPassword,String password);
 }

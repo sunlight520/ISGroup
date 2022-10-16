@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(User user){
         String username = user.getUsername();
         // 调用持久层的User findByUsername(String username)方法，根据用户名查询用户数据
         User result = userRepository.findUserByUsername(username);
@@ -27,6 +27,13 @@ public class UserServiceImpl implements UserService {
             // 是：表示用户名已被占用，则抛出UsernameDuplicateException异常
             throw new UsernameDuplicateException("尝试注册的用户名[" + username + "]已经被占用");
         }
+        String salt = UUID.randomUUID().toString().toUpperCase();
+        user.setSalt(salt);
+        String oldPassword = user.getPassword();
+        // 调用getMd5Password()方法，将参数password和salt结合起来进行加密
+        String md5Password = getMD5Password(oldPassword, salt);
+//         判断查询结果中的密码，与以上加密得到的密码是否不一致
+        user.setPassword(md5Password);
         return userRepository.save(user);
     }
 
@@ -47,12 +54,12 @@ public class UserServiceImpl implements UserService {
         // 从查询结果中获取盐值
         String salt = result.getSalt();
         // 调用getMd5Password()方法，将参数password和salt结合起来进行加密
-//        String md5Password = getMd5Password(password, salt);
-        // 判断查询结果中的密码，与以上加密得到的密码是否不一致
-//        if (!result.getPassword().equals(md5Password)) {
-//            // 是：抛出PasswordNotMatchException异常
-//            throw new PasswordNotMatchException("密码验证失败的错误");
-//        }
+        String md5Password = getMD5Password(password, salt);
+//         判断查询结果中的密码，与以上加密得到的密码是否不一致
+        if (!result.getPassword().equals(md5Password)) {
+            // 是：抛出PasswordNotMatchException异常
+            throw new PasswordNotMatchException("密码验证失败的错误");
+        }
         // 创建新的User对象
         User user = new User();
         // 将查询结果中的uid、username、avatar封装到新的user对象中
@@ -78,8 +85,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updatePasswordByUsername(String username, String password) {
-        return userRepository.updatePasswordByUsername(username,password);
+    public Integer updatePasswordByUsername(String username, String password,String oldPassword) {
+        User result  = userRepository.findUserByUsername(username);
+        String dataBaseOldPassword = result.getPassword();
+        String salt = result.getSalt();
+        // 调用getMd5Password()方法，将参数password和salt结合起来进行加密
+        String oldMd5Password = getMD5Password(oldPassword, salt);
+//         判断查询结果中的密码，与以上加密得到的密码是否不一致
+        if (!oldMd5Password.equals(dataBaseOldPassword)) {
+            // 是：抛出PasswordNotMatchException异常
+            throw new PasswordNotMatchException("原密码错误");
+        }
+        String newMd5Password = getMD5Password(password,salt);
+        return userRepository.updatePasswordByUsername(username,newMd5Password);
     }
 
     private String getMD5Password(String password,String salt){
