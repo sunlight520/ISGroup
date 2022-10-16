@@ -15,13 +15,18 @@ public class UserServiceTest {
     @Test
     public void saveTest(){
             User user = new User();
-            user.setName("LXPoo1");
+            user.setUsername("LXPoo1");
             userService.saveUser(user);
 
     }
+
     @Test
     public void findUserByIdTest(){
         User user = userService.findUserById(14);
         System.out.println(user);
+    }
+    @Test
+    public void updatePasswordTest(){
+        userService.updatePasswordByUsername("LXSoo","LoveLXPoo");
     }
 }

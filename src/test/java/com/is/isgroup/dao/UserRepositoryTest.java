@@ -14,7 +14,7 @@ public class UserRepositoryTest {
     @Test
      public void saveTest(){
         User user = new User();
-        user.setName("LXP");
+        user.setUsername("LXP");
 //        save返回值User
         userRepository.save(user);
     }
@@ -30,10 +30,15 @@ public class UserRepositoryTest {
     @Test
     public void insertUserTest(){
         User user = new User();
-        user.setName("LXS");
+        user.setUsername("LXS");
         user.setIsLandlord(1);
         user.setPassword("0610");
         User row = userRepository.save(user);
         System.out.println(row);
+    }
+    @Test
+    public void updatePasswordTest(){
+        String name = "LXPoo";
+        userRepository.updatePasswordByUsername(name,"LOVE");
     }
 }
