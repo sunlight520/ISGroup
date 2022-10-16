@@ -58,6 +58,6 @@ public class BaseController {
      * @return 当前登录的用户名
      */
     protected final String getUsernameFromSession(HttpSession session) {
-        return session.getAttribute("name").toString();
+        return session.getAttribute("username").toString();
     }
 }
