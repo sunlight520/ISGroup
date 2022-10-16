@@ -17,8 +17,8 @@ import java.util.UUID;
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
-    @RequestMapping("/saveUser")
-    public JsonResult<User> saveUser(User user){
+    @RequestMapping("/reg")
+    public JsonResult<User> reg(User user){
         User user1 = userService.saveUser(user);
         return new JsonResult<User>(OK,user1);
     }
