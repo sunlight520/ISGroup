@@ -34,6 +34,9 @@ public class BaseController {
             result.setState(5001);
         } else if (e instanceof DeleteException) {
             result.setState(5002);
+        } else if (e instanceof UserRepeatLoginException) {
+            result.setState(5003);
+
         }
 //        else if (e instanceof FileEmptyException) {
 //            result.setState(6000);
