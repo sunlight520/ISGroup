@@ -38,7 +38,6 @@ public class loginFilter implements Filter {
             //就判断用户列表中是否有此用户
             if (!userList.contains(userName)){
                 //如果不包含该用户，就添加进去
-
                 userList.add(userName);
             }else throw new UserRepeatLoginException("重新登录啦!");
         }
@@ -67,16 +66,19 @@ public class loginFilter implements Filter {
         //判断是否为同一个session
         Map<String,HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
         HttpSession session1=sessionMap.get(userName);
+
         if (session1==session){
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
             HttpServletResponse response=(HttpServletResponse) servletResponse;
-            response.sendRedirect("/logout.html");
+            response.sendRedirect("/web/main.html");
+            response.setHeader("REDIRECT","REDIRECT");//告诉ajax要重定向
+            response.setHeader("PATH","http://ip:8080/HTML_TTMS/html/Login.html");
             //用于销毁session
              session.invalidate();
         // 调用filter链中的下一个filter
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+//        filterChain.doFilter(servletRequest,servletResponse);
     }
     @Override
     public void destroy() {
