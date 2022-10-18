@@ -16,8 +16,8 @@ public class UserServiceTest {
     public void saveTest(){
             User user = new User();
             user.setUsername("LXPoo1");
+            user.setPassword("oooo");
             userService.saveUser(user);
-
     }
 
     @Test
@@ -27,6 +27,5 @@ public class UserServiceTest {
     }
     @Test
     public void updatePasswordTest(){
-        userService.updatePasswordByUsername("LXSoo","LoveLXPoo");
     }
 }
