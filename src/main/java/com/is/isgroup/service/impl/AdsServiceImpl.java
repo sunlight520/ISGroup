@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdsServiceImpl implements AdsService {
+public class     AdsServiceImpl implements AdsService {
     @Autowired
     AdsRepository adsRepository;
 

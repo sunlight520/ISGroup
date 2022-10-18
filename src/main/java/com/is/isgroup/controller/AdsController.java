@@ -76,9 +76,10 @@ public class AdsController extends BaseController{
     }
 //    更新广告的接口
     @RequestMapping("updateById")
-    public JsonResult<Ads> updateById(String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
+    public JsonResult<Ads> updateById(Integer id,String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
         File file = new File("");
-        Integer id = getIdFromSession(session);
+//        Integer id1 = getIdFromSession(session);
+//        System.out.println(id1);
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
         String fileName = photo.getOriginalFilename();

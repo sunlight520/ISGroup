@@ -227,7 +227,7 @@ ul.pagination li a:hover:not(.active) {
 }
 .repassword {
   width: 300px;
-  height: 40px;
+  height: 60px;
   margin: 10px 45px;
   padding-left: 10px;
   border: 1px solid #cccccc;
@@ -318,7 +318,7 @@ form:first-child {
 form {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 400px;
   font-size: 30px;
 }
 form input {

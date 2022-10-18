@@ -27,7 +27,7 @@
             <a class="nav__link" href="#">Change password</a>
           </li>
           <li class="nav__item"><a  href="/web/login.html"
-            ><button class="btn">Log out</button></a></li>
+            ><button id="logout"class="btn">Log out</button></a></li>
         </ul>
       </nav>
     </header>
@@ -91,19 +91,27 @@
      <div class="repassword-form">
       <form>
         <!-- 输入账户密码并确认密码 -->
-		    <div > <input class="repassword"type="text" placeholder="User name"></div>
-			  <div ><input class="repassword" type="password"placeholder=" New Password"></div>
-			  <div > <input class="repassword"type="password" placeholder="Comfirm New Password"></div> 
+
+			  <div ><input class="repassword" id="rpwd_1"type="password"placeholder=" New Password"></div>
+			  <div > <input class="repassword" id="rpwd_2"type="password" placeholder="Comfirm New Password"></div>
         
         <!-- 注册按钮 -->
          <input type="submit" class="repassword-button" value="Confirm Modification">
       </form>
      </div>
     </div>
-    <script src="../js/script-2.js"></script>
+
   <script>
 
     $(document).ready(function (){
+        const header = document.querySelector("header");
+        const adBoard = document.querySelector(".adBoard-wrapper");
+        const toMain = document.querySelector(".repassword-container img");
+        const repassword = document.querySelector(".repassword-container");
+        const repasswordBtn = document.querySelector(".nav__item:nth-child(3)");
+        const blur = document.querySelector(".blur");
+
+
 // 加载广告板信息
       let preData = $(".adBoard");
       let temp = '';
@@ -216,9 +224,66 @@
                 }
             })
         })
+// 修改密码
+        repasswordBtn.addEventListener("click", function () {
+            repassword.classList.remove("hidden");
+            adBoard.classList.add("blur");
+            header.classList.add("blur");
+        });
+
+        toMain.addEventListener("click", function () {
+            repassword.classList.add("hidden");
+            adBoard.classList.remove("blur");
+            header.classList.remove("blur");
+        });
+
+        $(function() {
+            $(".repassword-button").click(function () {
+
+                let password_1 = $("#rpwd_1").val();
+                console.log(password_1)
+                let password_2 = $("#rpwd_2").val();
+                console.log(password_2)
+
+
+                if (!password_1) {
+                    alert("请输入密码!");
+                    $("#rpwd_1").focus();
+                    return;
+                }
+                if (!password_2) {
+                    alert("请重复密码!");
+                    $("#rpwd_2").focus();
+                    return;
+                }
+                let param = {"password": password_1};
+                $.post("/user/updatePassword", param, function (result) {
+                    if (result) {
+                        alert('success！');
+                        repassword.classList.add("hidden");
+                        adBoard.classList.remove("blur");
+                        header.classList.remove("blur");
+                    } else {
+                        alert("修改密码失败!");
+                    }
+                });
+            });
+        });
+        // 登出
+$("#logout").click(function(){
+    sessionStorage.clear();
+    $.post("/user/logout",function (result) {
+        if (result) {
+            alert('success！');
+           window.location.href="./login.html"
+        } else {
+            alert("退出失败!");
+        }
+    });
 
 
 
+})
 
     });
   </script>
