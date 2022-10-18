@@ -39,8 +39,14 @@ public class loginFilter implements Filter {
             if (!userList.contains(userName)){
                 //如果不包含该用户，就添加进去
                 userList.add(userName);
-            }else throw new UserRepeatLoginException("重新登录啦!");
+            }else {
+//                throw new UserRepeatLoginException("重新登录啦!");
+                System.out.println("重复登录啦");
+            }
+
+
         }
+
         //获取此客户端的session
         //session列表
         HttpSession session= request.getSession();
@@ -54,15 +60,14 @@ public class loginFilter implements Filter {
                 sessionMap.put(userName,session);
             }
             //测试sessionMap
-            System.out.println("======sessionMap======");
-            for (Map.Entry<String,HttpSession> entry:sessionMap.entrySet()){
-                System.out.println(entry.getKey()+":"+entry.getValue());
-            }
-            System.out.println("=======================");
+//            System.out.println("======sessionMap======");
+//            for (Map.Entry<String,HttpSession> entry:sessionMap.entrySet()){
+//                System.out.println(entry.getKey()+":"+entry.getValue());
+//            }
+//            System.out.println("=======================");
         }
         //给session设置username
-        session.setAttribute("userName",userName);
-
+        session.setAttribute("username",userName);
         //判断是否为同一个session
         Map<String,HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
         HttpSession session1=sessionMap.get(userName);
@@ -71,9 +76,9 @@ public class loginFilter implements Filter {
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
             HttpServletResponse response=(HttpServletResponse) servletResponse;
-            response.sendRedirect("/web/main.html");
+//            response.sendRedirect("/web/main.html");
             response.setHeader("REDIRECT","REDIRECT");//告诉ajax要重定向
-            response.setHeader("PATH","http://ip:8080/HTML_TTMS/html/Login.html");
+            response.setHeader("PATH","http://localhost:8080/web/html/login.html");
             //用于销毁session
              session.invalidate();
         // 调用filter链中的下一个filter
