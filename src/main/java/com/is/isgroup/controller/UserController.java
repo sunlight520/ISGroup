@@ -10,6 +10,7 @@ import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,19 @@ public class UserController extends BaseController{
         session.invalidate();
         return new JsonResult<>(OK);
     }
+    /**
+     * 后管登出
+     * @param request
+     * @return
+     */
+    @PostMapping("/logout")
+    public JsonResult<String> loginOut(HttpServletRequest request){
+        // 去除session
+
+        request.getSession().removeAttribute("username");
+        return new  JsonResult<>(OK,"退出成功");
+    }
+
     @RequestMapping("/updatePassword")
     public JsonResult<Void> updatePassword(String oldPassword,String password,HttpSession session){
             String username = getUsernameFromSession(session);
