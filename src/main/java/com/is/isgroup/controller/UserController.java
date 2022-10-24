@@ -1,5 +1,6 @@
 package com.is.isgroup.controller;
 
+import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.User;
 import com.is.isgroup.service.UserService;
 import com.is.isgroup.service.ex.PasswordNotMatchException;
@@ -32,13 +33,14 @@ public class UserController extends BaseController{
 //        if (!Objects.equals(username, name)) {
 //            throw new UserRepeatLoginException("用户已经登陆啦");
 //        }
-
         User data = userService.login(username, password);
         //登录成功后，将uid和username存入到HttpSession中
         session.setAttribute("id", data.getId());
+        session.setAttribute("isLandlord",data.getIsLandlord());
 //        session.setAttribute("username", data.getUsername());
 //         System.out.println("Session中的id=" + getIdFromSession(session));
          System.out.println("Session中的username=" + session.getAttribute("username"));
+        System.out.println("Session中的username=" + session.getAttribute("isLandlord"));
         // 将以上返回值和状态码OK封装到响应结果中并返回
         return new JsonResult<User>(OK, data);
     }
@@ -71,6 +73,11 @@ public class UserController extends BaseController{
     public JsonResult<Void> changePrivilege(String username,Integer level){
         userService.changeLevelByUsername(username,level);
         return new JsonResult<>(OK);
+    }
+    @GetMapping("/getAllUser")
+    public JsonResult<List<User>> getAllUser(){
+        List<User> usersList = userService.findAllUser();
+        return new JsonResult<List<User>>(OK,usersList);
     }
 }
 

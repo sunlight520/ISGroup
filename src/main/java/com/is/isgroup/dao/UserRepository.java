@@ -15,6 +15,8 @@ import java.util.Optional;
 @Repository(value = "userRepository")
 public interface UserRepository extends JpaRepository<User,Integer> {
     User findUserById(Integer id);
+    @Override
+    List<User> findAll();
     User findUserByUsername(String username);
     @Modifying
     @Transactional

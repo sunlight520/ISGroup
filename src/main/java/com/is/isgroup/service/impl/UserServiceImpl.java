@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -104,6 +105,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer changeLevelByUsername(String username, Integer isLandlord) {
         return userRepository.changeLevelByUsername(username,isLandlord);
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userRepository.findAll();
     }
 
     private String getMD5Password(String password,String salt){

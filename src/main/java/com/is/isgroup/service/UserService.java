@@ -16,4 +16,5 @@ public interface UserService {
     Integer updatePasswordByUsername(String username,String oldPassword,String password);
 
     Integer changeLevelByUsername(String username, Integer isLandlord);
+    List<User> findAllUser();
 }
