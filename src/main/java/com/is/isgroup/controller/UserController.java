@@ -32,6 +32,7 @@ public class UserController extends BaseController{
 //        if (!Objects.equals(username, name)) {
 //            throw new UserRepeatLoginException("用户已经登陆啦");
 //        }
+
         User data = userService.login(username, password);
         //登录成功后，将uid和username存入到HttpSession中
         session.setAttribute("id", data.getId());

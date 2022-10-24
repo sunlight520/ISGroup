@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
         // 将查询结果中的uid、username、avatar封装到新的user对象中
         user.setId(result.getId());
         user.setUsername(result.getUsername());
+        user.setIsLandlord(result.getIsLandlord());
         // 返回新的user对象
         return user;
     }
