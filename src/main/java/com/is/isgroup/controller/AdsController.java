@@ -2,9 +2,7 @@ package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.ListAndNumber;
-import com.is.isgroup.entity.User;
 import com.is.isgroup.service.AdsService;
-import com.is.isgroup.service.UserService;
 import com.is.isgroup.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +31,7 @@ public class AdsController extends BaseController{
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
+        publishName="user";
         Ads ads = adsService.insertAds(inform,price,path+fileName,fileName,publishName);
         return new JsonResult<Ads>(OK,ads);
     }
@@ -77,9 +76,10 @@ public class AdsController extends BaseController{
     }
 //    更新广告的接口
     @RequestMapping("updateById")
-    public JsonResult<Ads> updateById(String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
+    public JsonResult<Ads> updateById(Integer id,String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
         File file = new File("");
-        Integer id = getIdFromSession(session);
+//        Integer id1 = getIdFromSession(session);
+//        System.out.println(id1);
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
         String fileName = photo.getOriginalFilename();
