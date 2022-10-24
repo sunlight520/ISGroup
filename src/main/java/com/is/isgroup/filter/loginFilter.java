@@ -77,8 +77,7 @@ public class loginFilter implements Filter {
         }else {
             HttpServletResponse response=(HttpServletResponse) servletResponse;
 //            response.sendRedirect("/web/main.html");
-            response.setHeader("REDIRECT","REDIRECT");//告诉ajax要重定向
-            response.setHeader("PATH","http://localhost:8080/web/html/login.html");
+            response.sendRedirect("/web/login.html");
             //用于销毁session
              session.invalidate();
         // 调用filter链中的下一个filter

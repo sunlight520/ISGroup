@@ -63,7 +63,7 @@ public class AdsController extends BaseController{
         return new JsonResult<>(OK,listAndNumber);
     }
 //    获取所有广告的接口
-    @RequestMapping("getAllAds")
+    @GetMapping("/getAllAds")
     public JsonResult<List<Ads>> getAllAds(){
         List<Ads> AllAds = adsService.getAllAds();
 

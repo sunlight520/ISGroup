@@ -66,5 +66,10 @@ public class UserController extends BaseController{
             userService.updatePasswordByUsername(username,password,oldPassword);
             return new JsonResult<>(OK);
     }
+    @RequestMapping("/changePrivilege")
+    public JsonResult<Void> changePrivilege(String username,Integer level){
+        userService.changeLevelByUsername(username,level);
+        return new JsonResult<>(OK);
+    }
 }
 

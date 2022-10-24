@@ -100,6 +100,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.updatePasswordByUsername(username,newMd5Password);
     }
 
+    @Override
+    public Integer changeLevelByUsername(String username, Integer isLandlord) {
+        return userRepository.changeLevelByUsername(username,isLandlord);
+    }
+
     private String getMD5Password(String password,String salt){
         for (int i=0;i<3;i++){
             password = DigestUtils.md5DigestAsHex((salt+password+salt).getBytes()).toUpperCase();

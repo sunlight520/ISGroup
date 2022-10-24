@@ -20,5 +20,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Transactional
     @Query(value = "UPDATE t_user  SET password=:#{#password} where username=:#{#username}",nativeQuery = true)
     Integer updatePasswordByUsername(@Param("username") String username, String password);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE t_user  SET is_landlord=:#{#isLandlord} where username=:#{#username}",nativeQuery = true)
+    Integer changeLevelByUsername(@Param("username") String username, Integer isLandlord);
 }
 
