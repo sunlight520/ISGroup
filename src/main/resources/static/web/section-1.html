@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage permissions</title>
     <link rel="stylesheet" href="../css/style2.css" />
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
   </head>
   <body>
     <header>
@@ -19,32 +20,80 @@
     <div class="user-list-wrapper">
       <ul class="user-list">
         <li>
-          <div class="user-name">User name</div>
-          <div class="user-name">Permission status</div>
-          <div class="user-name">Operation</div>
+          <div class="username">User name</div>
+          <div class="username">Permission status</div>
+          <div class="username">Operation</div>
         </li>
-        <li>
-          <div class="user-name">小明</div>
-          <div class="user-name tobechanged">Authorized</div>
-          <button class="btn-3">Cancel permission</button>
-        </li>
-        <li>
-          <div class="user-name">Алексей</div>
-          <div class="user-name tobechanged">Unauthorized</div>
-          <button class="btn-3">Render permission</button>
-        </li>
-        <li>
-          <div class="user-name">Jack</div>
-          <div class="user-name tobechanged">Unauthorized</div>
-          <button class="btn-3">Render permission</button>
-        </li>
-        <li>
-          <div class="user-name">あさく</div>
-          <div class="user-name tobechanged">Unauthorized</div>
-          <button class="btn-3">Render permission</button>
-        </li>
+<!--        <li>-->
+<!--          <div class="user-name">小明</div>-->
+<!--          <div class="user-name tobechanged">Authorized</div>-->
+<!--          <button class="btn-3">Cancel permission</button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <div class="user-name">Алексей</div>-->
+<!--          <div class="user-name tobechanged">Unauthorized</div>-->
+<!--          <button class="btn-3">Render permission</button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <div class="user-name">Jack</div>-->
+<!--          <div class="user-name tobechanged">Unauthorized</div>-->
+<!--          <button class="btn-3">Render permission</button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <div class="user-name">あさく</div>-->
+<!--          <div class="user-name tobechanged">Unauthorized</div>-->
+<!--          <button class="btn-3">Render permission</button>-->
+<!--        </li>-->
       </ul>
     </div>
     <script src="../js/script-3.js"></script>
+  <script>
+    let temp = '';
+    let preData = $(".user-list");
+
+    $.ajax({
+      url: `/user/getAllUser`,
+      type: "GET",
+      dataType: "json",
+      async: true,
+      success: function (data){
+
+        let contents = data;
+        // preData.empty();
+        $.each(contents.data,function (i,item) {
+          temp += " <li><div class=\"username\">"+item.username+"</div>";
+          // 已授权
+          if(item.isLandlord){temp +=  "<div class=\"username tobechanged\">Authorized</div>"
+            temp +=  `<button class=\"btn-3 red-btn\" user=\"item.userName\" onclick='change("${item.username}",${item.isLandlord})'"+">Cancel permission</button> </li>`;}
+           // 未授权
+          else {temp +=" <div class=\"username tobechanged\">Unauthorized</div>"
+            temp +=  `<button class=\"btn-3 green-btn\" user=\"item.userName\" onclick='change("${item.username}",${item.isLandlord})'"+">Render permission</button> </li>`;}
+
+        });
+        preData.append(temp);
+        temp="";
+      },
+      //请求失败
+      error: function (e) {
+        alert("request failed !")
+      }
+    })
+    function change(userName,is_landlord){
+      $.ajax({
+        url: `/user/changePrivilege?username=${userName}&level=${1-is_landlord}`,
+        type: "post",
+        dataType: "json",
+        async: true,
+        success: function(e) {
+          location.reload();
+        },
+        error:function (e) {
+          alert("something wrong")
+        }
+      })
+
+    }
+
+  </script>
   </body>
 </html>

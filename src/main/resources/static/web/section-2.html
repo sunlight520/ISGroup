@@ -107,9 +107,28 @@
 
     let adId = 0;
     function alter() {
-        let price = $("#priceEdit").val();
-        let info = $("#infoEdit").val();
-        let  file = $("#file")[0].files[0];
+        let price;
+        let info;
+        let file;
+        // $.ajax({
+        //     url: `/ads/getAdsById?id=${adId}`,
+        //     type: "GET",
+        //     cache:false,
+        //     processData:false,
+        //     contentType:false,
+        //     dataType: "JSON",
+        //     success: function(data) {
+        //         alert("success load ad")
+        //         price=
+        //         location.reload();
+        //     },
+        //     error:function (json) {
+        //         alert("something wrong")
+        //     }
+        // });
+        price = $("#priceEdit").val();
+       info = $("#infoEdit").val();
+       file = $("#file")[0].files[0];
 
         let data= new FormData()
         data.append("id",adId)
@@ -168,12 +187,10 @@
 
 
 
-    function del(){
-
-        let adId = $(".withdraw").attr("rowid");
+    function del(id){
 
         ($.ajax({
-                    url: `/ads/deleteAdsById?id=${adId}`,
+                    url: `/ads/deleteAdsById?id=${id}`,
                     type: "post",
                     dataType: "json",
                     async: true,
@@ -214,7 +231,7 @@
                     temp += "</div><div class='detail'>";
                     temp +=   "<span>"+item.price+"$"+"</span></div>"
                     temp += "<div class='position'></div>";
-                    temp += "<button type='button' class=\"withdraw\" onclick='del()'" + "rowid=" + item.id + ">Delete</button>\n" +
+                    temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
                         "<button  type='button' class=\"edit\" onclick='editAppear("+ item.id +")'" + "rowid=" + item.id + ">Edit</button>";
                     temp += "</div>";
                 });
@@ -255,7 +272,7 @@
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
                         temp += "<div class='position'></div>";
-                        temp += "<button type='button' class=\"withdraw\" onclick='del()'" + "rowid=" + item.id + ">Delete</button>\n" +
+                        temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
                             "<button  type='button' class=\"edit\">Edit</button>";
                         temp += "</div>";
                     });
@@ -294,7 +311,7 @@
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
                         temp += "<div class='position'></div>";
-                        temp += "<button type='button' class=\"withdraw\" onclick='del()'" + "rowid=" + item.id + ">Delete</button>\n" +
+                        temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
                             "<button  type='button' class=\"edit\">Edit</button>";
                         temp += "</div>";
                     });
