@@ -21,14 +21,10 @@
     <div class="adBoard-wrapper">
       <div class="create-form">
         <form  id="form-insert" action="insertAds.html" method="post" enctype="multipart/form-data" role="form">
-
             Price:<input  name="price" type="number" />
-
 <!--            Location:<input  name="" type="text" />-->
-
             Information:<textarea name="inform" > </textarea>
-
-            Picture:<input name="photo" type="file" accept=”image/*“ />
+          Picture:<input name="photo" type="file" accept=”image/*“ />
 
            <input type="button" class="create-button" value="Submit" />
         </form>
@@ -42,7 +38,7 @@
           let formData = new FormData(document.getElementById('form-insert'));
           console.log(formData)
           $.ajax({
-              url: "/ads/insertAds",
+              url: "/ads",
               type: "POST",
               data: formData,
               cache: false,

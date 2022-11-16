@@ -9,6 +9,7 @@
     <script src="../bootstrap3/js/bootstrap.js"></script>
 </head>
 <body>
+
     <form  id="form-insert" action="insertAds.html" method="post" enctype="multipart/form-data" role="form">
         <div >
             <input name="inform" type="text"  placeholder="请输入信息">
@@ -20,6 +21,9 @@
             <input name="price" type="text"  placeholder="请输入价格">
         </div>
         <div >
+            <input name="publishName" type="text"  placeholder="命名">
+        </div>
+        <div >
             <input id="btn-insert"  type="button" value="提交" />
         </div>
     </form>
@@ -27,7 +31,7 @@
     $("#btn-insert").click(function() {
         let formData = new FormData(document.getElementById('form-insert'));
         $.ajax({
-            url: "/ads/insertAds",
+            url: "/ads",
             type: "POST",
             data: formData,
             cache:false,
@@ -41,7 +45,6 @@
                 alert("no")
             }
         });
-
     });
 </script>
 </body>

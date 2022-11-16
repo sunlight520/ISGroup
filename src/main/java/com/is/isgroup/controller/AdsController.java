@@ -14,16 +14,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/ads")
+@CrossOrigin
 public class AdsController extends BaseController{
-
     @Autowired
     private AdsService adsService;
+    @Autowired
+    private UserController userController;
 //    插入单条广告的接口
-    @RequestMapping("insertAds")
-    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,String publishName,HttpSession session)throws IOException{
+    @PostMapping()
+    public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,HttpSession session)throws IOException{
+        String name = getUsernameFromSession(session);
+        System.out.println(name);
         File file = new File("");
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
 //        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
@@ -31,8 +36,8 @@ public class AdsController extends BaseController{
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
-        publishName="user";
-        Ads ads = adsService.insertAds(inform,price,path+fileName,fileName,publishName);
+//        String publishName = "user";
+        Ads ads = adsService.insertAds(inform,price,path+fileName,fileName, name);
         return new JsonResult<Ads>(OK,ads);
     }
     public void saveFile(MultipartFile photo,String path)throws  IOException{
@@ -51,9 +56,9 @@ public class AdsController extends BaseController{
         return new JsonResult<Ads>(OK,ads);
     }
 //    获取分页广告的接口
-    @RequestMapping("getAdsByPageNumber")
-    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer id){
-        List<Ads> adsList = adsService.findAdsByPageNumber(id);
+    @GetMapping("getAdsByPageNumber")
+    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer number){
+        List<Ads> adsList = adsService.findAdsByPageNumber(number);
         List<Ads> AllAds = adsService.getAllAds();
         Integer allAdsNumber = AllAds.size();
         ListAndNumber listAndNumber = new ListAndNumber();
@@ -62,21 +67,20 @@ public class AdsController extends BaseController{
         return new JsonResult<>(OK,listAndNumber);
     }
 //    获取所有广告的接口
-    @GetMapping("/getAllAds")
+    @GetMapping()
     public JsonResult<List<Ads>> getAllAds(){
         List<Ads> AllAds = adsService.getAllAds();
-
         return new JsonResult<List<Ads>>(OK,AllAds);
     }
 //    删除广告的接口
-    @RequestMapping("deleteAdsById")
-    public JsonResult<Ads> deleteAdsById(Integer id){
+    @DeleteMapping()
+    public JsonResult<Ads> deleteAdsById(@RequestParam("id") Integer id){
         adsService.deleteAdsById(id);
         return new JsonResult<>(OK);
     }
 //    更新广告的接口
-    @RequestMapping("updateById")
-    public JsonResult<Ads> updateById(Integer id,String inform, Integer price,String publishName,MultipartFile photo,HttpSession session) throws IOException {
+    @PutMapping()
+    public JsonResult<Ads> updateById(Integer id,String inform,Integer price,MultipartFile photo,HttpSession session) throws IOException {
         File file = new File("");
 //        Integer id1 = getIdFromSession(session);
 //        System.out.println(id1);
@@ -86,14 +90,28 @@ public class AdsController extends BaseController{
         String allStr = path + fileName;
         System.out.println(allStr);
         saveFile(photo,path);
+
         Ads ads1 = adsService.getAdsById(id);
-        ads1.setPhoto(path+fileName);
-        ads1.setPhotoName(fileName);
+        System.out.println(ads1);
+        System.out.println(ads1.getInform());
+        System.out.println(inform);
+        System.out.println(ads1.getPhotoName());
         ads1.setId(id);
-        adsService.updateById(id,inform,price,path+fileName,fileName,publishName);
+        System.out.println(inform+"**"+price);
+        if (Objects.equals(inform, "HELLO")){
+            inform = ads1.getInform();
+        }
+        String prNum = price.toString();
+        if (prNum.equals("-1")){
+            price = ads1.getPrice();
+        }
+        if (photo.isEmpty()){
+            fileName = ads1.getPhotoName();
+        }
+        System.out.println(fileName);
+        System.out.println(price+"***"+inform+"***"+prNum);
+        adsService.updateById(id,inform,price,path+fileName,fileName);
 //        Ads ads =   adsService.insertAds(inform,price,path+fileName,fileName,publishName);
         return new JsonResult<Ads>(OK,ads1);
     }
-
-
 }

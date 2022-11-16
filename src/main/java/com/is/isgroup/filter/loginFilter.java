@@ -17,7 +17,6 @@ public class loginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         // do something 处理request 或response
@@ -27,7 +26,7 @@ public class loginFilter implements Filter {
         //获取userName
         String userName=request.getParameter("username");
         //设置一个用户列表，用于记录用户登录
-        if (context.getAttribute("userList")==null){
+        if (context.getAttribute("userList") == null){
             //如果第一次登录这个客户端，就创建列表，加入用户
             List<String> userList = new ArrayList<String>();
             userList.add(userName);
@@ -40,16 +39,16 @@ public class loginFilter implements Filter {
                 //如果不包含该用户，就添加进去
                 userList.add(userName);
             }else {
-//                throw new UserRepeatLoginException("重新登录啦!");
+                HttpServletResponse response=(HttpServletResponse) servletResponse;
+//            response.sendRedirect("/web/main.html");
+                response.sendRedirect("http://127.0.0.1:8080/web/asdfgh.html");
+                //用于销毁session
                 System.out.println("重复登录啦");
             }
-
-
         }
-
         //获取此客户端的session
         //session列表
-        HttpSession session= request.getSession();
+        HttpSession session= request.getSession(false);
         if (context.getAttribute("sessionMap")==null){
             Map<String,HttpSession> sessionMap=new HashMap<String,HttpSession>();
             sessionMap.put(userName,session);

@@ -21,12 +21,13 @@ import java.util.*;
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
-    @RequestMapping("/register")
+    @PostMapping()
     public JsonResult<User> register(User user){
         User user1 = userService.saveUser(user);
         return new JsonResult<User>(OK,user1);
     }
-    @RequestMapping("/login")
+
+    @PostMapping("/login")
     public JsonResult<User> login(HttpServletRequest request,String username, String password, HttpSession session) {
         // 调用业务对象的方法执行登录，并获取返回值
         String name = (String) session.getAttribute("username");
@@ -37,17 +38,12 @@ public class UserController extends BaseController{
         //登录成功后，将uid和username存入到HttpSession中
         session.setAttribute("id", data.getId());
         session.setAttribute("isLandlord",data.getIsLandlord());
-//        session.setAttribute("username", data.getUsername());
-//         System.out.println("Session中的id=" + getIdFromSession(session));
-         System.out.println("Session中的username=" + session.getAttribute("username"));
-        System.out.println("Session中的username=" + session.getAttribute("isLandlord"));
+        session.setAttribute("username", data.getUsername());
+//      System.out.println("Session中的id=" + getIdFromSession(session));
+        System.out.println("Session中的username=" + session.getAttribute("username"));
+        System.out.println("Session中的isLandlord=" + session.getAttribute("isLandlord"));
         // 将以上返回值和状态码OK封装到响应结果中并返回
         return new JsonResult<User>(OK, data);
-    }
-    @RequestMapping("/exit")
-    public JsonResult<Void> exit(HttpSession session){
-        session.invalidate();
-        return new JsonResult<>(OK);
     }
     @RequestMapping("/logout")
     //退出就是将session中的用户id清理掉，需要操作session，参数要加上HttpServletRequest request
@@ -63,18 +59,20 @@ public class UserController extends BaseController{
         sessionMap.remove(username);
         return new JsonResult<>(OK,"退出成功");
     }
+
     @RequestMapping("/updatePassword")
     public JsonResult<Void> updatePassword(String oldPassword,String password,HttpSession session){
             String username = getUsernameFromSession(session);
             userService.updatePasswordByUsername(username,password,oldPassword);
             return new JsonResult<>(OK);
     }
+
     @RequestMapping("/changePrivilege")
     public JsonResult<Void> changePrivilege(String username,Integer level){
         userService.changeLevelByUsername(username,level);
         return new JsonResult<>(OK);
     }
-    @GetMapping("/getAllUser")
+    @GetMapping()
     public JsonResult<List<User>> getAllUser(){
         List<User> usersList = userService.findAllUser();
         return new JsonResult<List<User>>(OK,usersList);

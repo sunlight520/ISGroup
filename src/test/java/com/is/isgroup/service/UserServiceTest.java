@@ -15,7 +15,7 @@ public class UserServiceTest {
     @Test
     public void saveTest(){
             User user = new User();
-            user.setUsername("LXPoo1");
+            user.setUsername("LXPooo1");
             user.setPassword("oooo");
             userService.saveUser(user);
     }

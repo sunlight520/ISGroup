@@ -1,7 +1,6 @@
 package com.is.isgroup.dao;
 
 import com.is.isgroup.entity.Ads;
-import org.hibernate.annotations.SQLUpdate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +20,10 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     void updateById( @Param("ads") Ads ads);
     @Modifying
     @Transactional
+    @Query(value = "UPDATE t_ads  SET inform =:#{#ads.inform} where id=:#{#ads.id}",nativeQuery = true)
+    void updateInformById( @Param("ads") Ads ads);
+    @Modifying
+    @Transactional
     @Query(value = "SELECT * FROM t_ads LIMIT 3 offset (:number-1)*3 ",nativeQuery = true)
     List<Ads> findAdsByPageNumber(@Param("number") Integer number);
     @Override
@@ -28,5 +31,5 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE t_ads  SET photo=:#{#photo} where id=:#{#aid}",nativeQuery = true)
-    Integer updatePhotoById(@Param("aid") Integer id,String photo);
+    Ads updatePhotoById(@Param("aid") Integer id,String photo);
 }

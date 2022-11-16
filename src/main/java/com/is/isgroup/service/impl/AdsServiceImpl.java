@@ -39,14 +39,13 @@ public class     AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public Ads updateById(Integer id,String inform, Integer price, String photo,String photoName,String publishName) {
-        Ads ads = new Ads();
+    public Ads updateById(Integer id,String inform, Integer price, String photo,String photoName) {
+        Ads ads = getAdsById(id);
         ads.setId(id);
         ads.setInform(inform);
         ads.setPrice(price);
         ads.setPhoto(photo);
         ads.setPhotoName(photoName);
-        ads.setPublishName(publishName);
         adsRepository.save(ads);
         return ads;
     }
@@ -65,6 +64,11 @@ public class     AdsServiceImpl implements AdsService {
     @Override
     public List<Ads> findAdsByPageNumber(Integer number) {
         return adsRepository.findAdsByPageNumber(number);
+    }
+
+    @Override
+    public Ads updateInformById(Integer id, String inform) {
+        return adsRepository.updatePhotoById(id,inform);
     }
 
 //    @Override

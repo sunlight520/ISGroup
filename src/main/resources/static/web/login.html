@@ -49,20 +49,14 @@
                 <!-- 选择身份  -->
                 <div class="choose"> Landlord or Tenant?<br>
                     <input type="radio"  name="identity" id="identity-1" val="1"><label for="identity-1">Landlord</label>
-                    |
                     <input type="radio" name="identity" id="identity-2" val="0"><label for="identity-2" >Tenant</label></div>
                 <!-- 注册按钮 -->
-
                 <input type="submit" class="register-button" value="Register">
             </form>
         </div>
     </div>
 </div>
-
-
-
 <script>
-
     $(document).ready(function() {
         $(".to-register").click(function () {
             alert(1);
@@ -75,101 +69,95 @@
             $("#register-container").addClass("register-container");
         });
         // 登录功能
+        $(".login").click(function () {
+            let username = $("#uname").val();
+            let password = $("#pwd").val();
+            console.log(username)
+            if (!username) {
+                alert("请输入用户名!");
+                $("#uname").focus();
+                return;
+            }
+            if (!password) {
+                alert("请输入密码!");
+                $("#pwd").focus();
+                return;
+            }
+            let param = {"username": username, "password": password};
+            $.ajax({
+                url: "/user/login",
+                type: "POST",
+                dataType: "json",
+                async: true,
+                data:param,
+                success: function (data) {
+                    var webState = data.state
+                    if (webState === 200) {
+                        alert('success');
+                        window.location.href = "main.html";
+                    }else {
+                        alert('something error');
+                    }
+                },
+                error: function (e) {
+                    alert("request failed !")
+                }
+            });
+        });
+        // 注册功能
+        $(function () {
+            $(".register-button").click(function () {
+                let username = $("#uname_2").val();
+                let password_1 = $("#pwd_2_1").val();
+                let password_2 = $("#pwd_2_2").val();
+                let is_landlord;
 
-            $(".login").click(function () {
-                let username = $("#uname").val();
-                let password = $("#pwd").val();
-                console.log(username)
+                if (password_1 != password_2) {
+                    alert("密码不一致，请重新输入！")
+                }
+
                 if (!username) {
                     alert("请输入用户名!");
-                    $("#uname").focus();
+                    $("#uname_2").focus();
                     return;
                 }
-                if (!password) {
+                if (!password_1) {
                     alert("请输入密码!");
-                    $("#pwd").focus();
+                    $("#pwd_2_1").focus();
                     return;
                 }
-                let param = {"username": username, "password": password};
-                $.ajax({
-                    url: "/user/login",
-                    type: "POST",
-                    dataType: "json",
-                    async: true,
-                    data:param,
-                    success: function (data) {
+                if (!password_2) {
+                    alert("请重复密码!");
+                    $("#pwd_2_2").focus();
+                    return;
+                }
+                let check = $('input[type=radio]');
+
+                for (let i = check.length; i--;) {
+                    let el = check[i];
+                    if (el.checked) {
+                        is_landlord = el.getAttribute("val");
+                        console.log(is_landlord);
+                        break;
+                    }
+                }
+
+
+                let param = {"username": username, "password": password_1, "isLandlord": is_landlord};
+                $.post("/user", param, function (result) {
+                    if (result) {
                         alert('success');
-                        //     , param, function (result) {
-                        //     if (result) {
-                        //
-                        window.location.href = "main.html";
-                        //     } else {
-                        //         alert("用户名或者密码错误!");
-                        //     }}
-                    },
-                    error: function (e) {
-                        alert("request failed !")
+
+                        $(".login-container").removeClass("register-container");
+                        $("#register-container").addClass("register-container");
+
+
+                    } else {
+                        alert("注册失败!");
                     }
                 });
             });
-
-            // 注册功能
-            $(function () {
-                $(".register-button").click(function () {
-                    let username = $("#uname_2").val();
-                    let password_1 = $("#pwd_2_1").val();
-                    let password_2 = $("#pwd_2_2").val();
-                    let is_landlord;
-
-                    if (password_1 != password_2) {
-                        alert("密码不一致，请重新输入！")
-                    }
-
-                    if (!username) {
-                        alert("请输入用户名!");
-                        $("#uname_2").focus();
-                        return;
-                    }
-                    if (!password_1) {
-                        alert("请输入密码!");
-                        $("#pwd_2_1").focus();
-                        return;
-                    }
-                    if (!password_2) {
-                        alert("请重复密码!");
-                        $("#pwd_2_2").focus();
-                        return;
-                    }
-                    let check = $('input[type=radio]');
-
-                    for (let i = check.length; i--;) {
-                        let el = check[i];
-                        if (el.checked) {
-                            is_landlord = el.getAttribute("val");
-                            console.log(is_landlord);
-                            break;
-                        }
-                    }
-
-
-                    let param = {"username": username, "password": password_1, "isLandlord": is_landlord};
-                    $.post("/user/register", param, function (result) {
-                        if (result) {
-                            alert('success');
-
-                            $(".login-container").removeClass("register-container");
-                            $("#register-container").addClass("register-container");
-
-
-                        } else {
-                            alert("注册失败!");
-                        }
-                    });
-                });
-            });
-
-
-
+        });
     });
 </script>
 </body>

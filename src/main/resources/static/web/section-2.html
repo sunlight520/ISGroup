@@ -7,18 +7,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/style2.css"/>
     <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
-
 </head>
-
 <body>
 <header>
     <nav class="nav">
         <a class="nav__logo" href="main.html"></a>
-        <a class="btn-2" href="login.html"
-        >
+        <a class="btn-2" href="login.html">
             <button class="btn">Log out</button>
-        </a
-        >
+        </a>
     </nav>
 </header>
 <a href="create.html">
@@ -26,64 +22,9 @@
 </a>
 <div class="create-page"></div>
 <div class="adBoard-wrapper">
-    <div class="adBoard">
-        <!--        <div class="content">-->
-        <!--          <div class="user">user-1</div>-->
-        <!--          <div class="pic">-->
-        <!--            <img src="../img/house1.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--          </div>-->
-        <!--          <div class="detail">-->
-        <!--            <span>1000$</span>-->
-        <!--            <span>Short term</span>-->
-        <!--          </div>-->
-        <!--          <div class="position">Hong Kong Island Cayman Rise, Kennedy Town</div>-->
-        <!--          <button class="withdraw">Withdraw</button>-->
-        <!--          <button class="edit">Edit</button>-->
-        <!--        </div>-->
-        <!--        <div class="content">-->
-        <!--          <div class="user">user-1</div>-->
-        <!--          <div class="pic">-->
-        <!--            <img src="../img/house1.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--          </div>-->
-        <!--          <div class="detail">-->
-        <!--            <span>1000$</span>-->
-        <!--            <span>Short term</span>-->
-        <!--          </div>-->
-        <!--          <div class="position">Hong Kong Island Cayman Rise, Kennedy Town</div>-->
-        <!--          <button class="withdraw">Withdraw</button>-->
-        <!--          <button class="edit">Edit</button>-->
-        <!--        </div>-->
-        <!--        <div class="content">-->
-        <!--          <div class="user">user-1</div>-->
-        <!--          <div class="pic">-->
-        <!--            <img src="../img/house1.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--            <img src="../img/house2.png" alt="" />-->
-        <!--          </div>-->
-        <!--          <div class="detail">-->
-
-        <!--            <span>1000$</span>-->
-        <!--            <span>Short term</span>-->
-        <!--          </div>-->
-        <!--          <div class="position">Hong Kong Island Cayman Rise, Kennedy Town</div>-->
-        <!--          <button class="withdraw">Withdraw</button>-->
-        <!--          <button class="edit">Edit</button>-->
-        <!--        </div>-->
-    </div>
-
+    <div class="adBoard">  </div>
     <ul class="pagination">
         <li><a id ="last" href="#">«</a></li>
-<!--        <li><a href="#">1</a></li>-->
-<!--        <li><a class="active" href="#">2</a></li>-->
-<!--        <li><a href="#">3</a></li>-->
-<!--        <li><a href="#">4</a></li>-->
-<!--        <li><a href="#">5</a></li>-->
-<!--        <li><a href="#">6</a></li>-->
-<!--        <li><a href="#">7</a></li>-->
         <li><a id="next" href="#">»</a></li>
     </ul>
 </div>
@@ -91,60 +32,48 @@
     <div class="back-2" onclick="back()"><img src="/img/back.png" alt=""></div>
     <div class="edit-form">
         <div id="myForm">
-
            Price ：<div > <input id="priceEdit" class="repassword"type="number" placeholder="new price"></div>
            Information: <div ><input id="infoEdit"class="repassword" type="text"placeholder=" new Infomation"></div>
             Picture:<input id="file" name="photo" type="file" accept=”image/*“ />
-
-
             <button type='button' class="edit-button"  onclick="alter()" value="Confirm Edit">Edit</button>
         </div>
     </div>
 </div>
-
-
 <script>
-
     let adId = 0;
+    let thisPublishName = "";
     function alter() {
         let price;
         let info;
         let file;
-        // $.ajax({
-        //     url: `/ads/getAdsById?id=${adId}`,
-        //     type: "GET",
-        //     cache:false,
-        //     processData:false,
-        //     contentType:false,
-        //     dataType: "JSON",
-        //     success: function(data) {
-        //         alert("success load ad")
-        //         price=
-        //         location.reload();
-        //     },
-        //     error:function (json) {
-        //         alert("something wrong")
-        //     }
-        // });
         price = $("#priceEdit").val();
        info = $("#infoEdit").val();
        file = $("#file")[0].files[0];
-
         let data= new FormData()
         data.append("id",adId)
         console.log(adId)
+
         data.append("price",price)
         data.append("inform",info)
         data.append("photo",file)
-        data.append("publishName","user")
-        console.log(data)
+        if (!data.get("price")){
+            data.set("price",'-1');
+        }
+        if (!data.get("inform")){
+            data.set("inform",'HELLO');
+        }
+        if (!file){
+            // let fileName = file.name;
+            file =  new File([],"fileName")
+        }
+        data.append("photo",file)
         $.ajax({
-                url: "/ads/updateById",
-                type: "POST",
+                url: "/ads",
+                type: "PUT",
                 data: data,
                 cache:false,
                 processData:false,
-                contentType:false,
+                 contentType: false,
                 dataType: "JSON",
                 success: function(json) {
                     alert("success")
@@ -154,48 +83,25 @@
                     alert("something wrong")
                 }
             });
-
         };
-
     function back(){
         document.querySelector(".edit-container").classList.add("hidden");
         document.querySelector(".adBoard-wrapper").classList.remove("blur");
         document.querySelector(".header").classList.remove("blur");
     }
     function editAppear(id){
-
         adId= id
         document.querySelector(".edit-container").classList.remove("hidden");
         document.querySelector(".adBoard-wrapper").classList.add("blur");
         document.querySelector(".header").classList.add("blur");
-        // $.ajax({
-        //     url: `/ads/getAdsById?=${id}`,
-        //     type: "GET",
-        //     dataType: "json",
-        //     async: true,
-        //     success: function (data){
-        //         console.log(1)
-        //         $('#priceEdit').value=data.data.adsList.price
-        //         $('#infoEdit').value=data.data.adsList.inform
-        //         alert("success !")
-        //     },
-        //     error: function (e) {
-        //         alert("request failed !")
-        //     }
-        // })
     }
-
-
-
     function del(id){
-
         ($.ajax({
-                    url: `/ads/deleteAdsById?id=${id}`,
-                    type: "post",
+                    url: `/ads?id=${id}`,
+                    type: "DELETE",
                     dataType: "json",
                     async: true,
                     success: function(e) {
-
                         alert("success");
                         location.reload();
                     },
@@ -211,7 +117,6 @@
         let temp = '';
         let pageId=1;
         let allPage=0;
-
         $.ajax({
             url: `/ads/getAdsByPageNumber?id=${pageId}`,
             type: "GET",
@@ -225,14 +130,15 @@
                 $('ul.pagination').append(`<li class="pageInfo">Page:${pageId} Total:${allPage}</li>`);
                 $.each(contents.data.adsList,function (i,item) {
                     temp += "<div class='content'>";
-                    temp += "<div class='user'>"+item.publishName+"</div>";
+                    temp += "<div class='user' id='userName'>"+item.publishName+"</div>";
                     temp +="<div class=\"pic\">"
                     temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
                     temp += "</div><div class='detail'>";
                     temp +=   "<span>"+item.price+"$"+"</span></div>"
+                    temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
                     temp += "<div class='position'></div>";
                     temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
-                        "<button  type='button' class=\"edit\" onclick='editAppear("+ item.id +")'" + "rowid=" + item.id + ">Edit</button>";
+                            "<button type='button' class=\"edit\" onclick='editAppear("+item.id+")'" + "rowid=" + item.id + ">Edit</button>";
                     temp += "</div>";
                 });
                 preData.append(temp);
@@ -264,16 +170,16 @@
                     $('ul.pagination').append(`<li class="pageInfo">Page:${pageId} Total:${allPage}</li>`);
                     console.log(data)
                     $.each(contents.data.adsList,function (i,item) {
-
                         temp += "<div class='content'>";
                         temp += "<div class='user'>"+item.publishName+"</div>";
                         temp +="<div class=\"pic\">"
                         temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
+                        temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
                         temp += "<div class='position'></div>";
                         temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
-                            "<button  type='button' class=\"edit\">Edit</button>";
+                                "<button  type='button' class=\"edit\">Edit</button>";
                         temp += "</div>";
                     });
                     preData.append(temp);
@@ -310,9 +216,10 @@
                         temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
+                        temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
                         temp += "<div class='position'></div>";
                         temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
-                            "<button  type='button' class=\"edit\">Edit</button>";
+                                "<button  type='button' class=\"edit\">Edit</button>";
                         temp += "</div>";
                     });
                     preData.append(temp);
@@ -324,10 +231,7 @@
                 }
             })
         })
-
     });
-
 </script>
-
 </body>
 </html>

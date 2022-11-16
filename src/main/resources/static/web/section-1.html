@@ -24,35 +24,14 @@
           <div class="username">Permission status</div>
           <div class="username">Operation</div>
         </li>
-<!--        <li>-->
-<!--          <div class="user-name">小明</div>-->
-<!--          <div class="user-name tobechanged">Authorized</div>-->
-<!--          <button class="btn-3">Cancel permission</button>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <div class="user-name">Алексей</div>-->
-<!--          <div class="user-name tobechanged">Unauthorized</div>-->
-<!--          <button class="btn-3">Render permission</button>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <div class="user-name">Jack</div>-->
-<!--          <div class="user-name tobechanged">Unauthorized</div>-->
-<!--          <button class="btn-3">Render permission</button>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <div class="user-name">あさく</div>-->
-<!--          <div class="user-name tobechanged">Unauthorized</div>-->
-<!--          <button class="btn-3">Render permission</button>-->
-<!--        </li>-->
       </ul>
     </div>
     <script src="../js/script-3.js"></script>
   <script>
     let temp = '';
     let preData = $(".user-list");
-
     $.ajax({
-      url: `/user/getAllUser`,
+      url: `/user`,
       type: "GET",
       dataType: "json",
       async: true,
@@ -86,14 +65,13 @@
         async: true,
         success: function(e) {
           location.reload();
+          console.log(e)
         },
         error:function (e) {
           alert("something wrong")
         }
       })
-
     }
-
   </script>
   </body>
 </html>
