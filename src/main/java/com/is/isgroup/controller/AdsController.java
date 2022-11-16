@@ -22,8 +22,6 @@ import java.util.Objects;
 public class AdsController extends BaseController{
     @Autowired
     private AdsService adsService;
-    @Autowired
-    private UserController userController;
 //    插入单条广告的接口
     @PostMapping()
     public JsonResult<Ads> insertAds(String inform,Integer price,MultipartFile photo,HttpSession session)throws IOException{
@@ -57,8 +55,8 @@ public class AdsController extends BaseController{
     }
 //    获取分页广告的接口
     @GetMapping("getAdsByPageNumber")
-    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer number){
-        List<Ads> adsList = adsService.findAdsByPageNumber(number);
+    public JsonResult<ListAndNumber> getAdsByPageNumber(Integer id){
+        List<Ads> adsList = adsService.findAdsByPageNumber(id);
         List<Ads> AllAds = adsService.getAllAds();
         Integer allAdsNumber = AllAds.size();
         ListAndNumber listAndNumber = new ListAndNumber();

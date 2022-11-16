@@ -41,46 +41,39 @@ public class loginFilter implements Filter {
             }else {
                 HttpServletResponse response=(HttpServletResponse) servletResponse;
 //            response.sendRedirect("/web/main.html");
-                response.sendRedirect("http://127.0.0.1:8080/web/asdfgh.html");
+                response.sendRedirect("http://127.0.0.1:8080/web/test.html");
                 //用于销毁session
                 System.out.println("重复登录啦");
             }
         }
         //获取此客户端的session
         //session列表
-        HttpSession session= request.getSession(false);
-        if (context.getAttribute("sessionMap")==null){
-            Map<String,HttpSession> sessionMap=new HashMap<String,HttpSession>();
-            sessionMap.put(userName,session);
-            context.setAttribute("sessionMap",sessionMap);
-        }else {
-            Map<String,HttpSession> sessionMap= (Map<String, HttpSession>) context.getAttribute("sessionMap");
-            if (!sessionMap.containsKey(userName)){
-                sessionMap.put(userName,session);
-            }
-            //测试sessionMap
-//            System.out.println("======sessionMap======");
-//            for (Map.Entry<String,HttpSession> entry:sessionMap.entrySet()){
-//                System.out.println(entry.getKey()+":"+entry.getValue());
+//        HttpSession session= request.getSession(false);
+//        if (context.getAttribute("sessionMap")==null){
+//            Map<String,HttpSession> sessionMap=new HashMap<String,HttpSession>();
+//            sessionMap.put(userName,session);
+//            context.setAttribute("sessionMap",sessionMap);
+//        }else {
+//            Map<String,HttpSession> sessionMap= (Map<String, HttpSession>) context.getAttribute("sessionMap");
+//            if (!sessionMap.containsKey(userName)){
+//                sessionMap.put(userName,session);
 //            }
-//            System.out.println("=======================");
-        }
-        //给session设置username
-        session.setAttribute("username",userName);
-        //判断是否为同一个session
-        Map<String,HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
-        HttpSession session1=sessionMap.get(userName);
-
-        if (session1==session){
-            filterChain.doFilter(servletRequest,servletResponse);
-        }else {
-            HttpServletResponse response=(HttpServletResponse) servletResponse;
-//            response.sendRedirect("/web/main.html");
-            response.sendRedirect("/web/login.html");
-            //用于销毁session
-             session.invalidate();
-        // 调用filter链中的下一个filter
-        }
+//        }
+//        //给session设置username
+//        session.setAttribute("username",userName);
+//        //判断是否为同一个session
+//        Map<String,HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
+//        HttpSession session1=sessionMap.get(userName);
+//
+//        if (session1==session){
+//            filterChain.doFilter(servletRequest,servletResponse);
+//        }else {
+//            HttpServletResponse response=(HttpServletResponse) servletResponse;
+////           response.sendRedirect("/web/main.html");
+//             response.sendRedirect("/web/login.html");
+//            //用于销毁session
+//             session.invalidate();
+//        }
 //        filterChain.doFilter(servletRequest,servletResponse);
     }
     @Override

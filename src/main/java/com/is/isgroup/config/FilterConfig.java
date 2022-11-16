@@ -10,7 +10,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean registrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new loginFilter());
-        filterRegistrationBean.addUrlPatterns("/qwe.html");
+        filterRegistrationBean.addUrlPatterns("/web/test.html");
         return filterRegistrationBean;
     }
 }
