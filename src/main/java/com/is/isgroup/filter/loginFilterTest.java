@@ -36,23 +36,10 @@ public class loginFilterTest implements Filter{
                     sessionMap.put(userName, session);
                 }else {
                     System.out.println("重复登录啦");
-                  response.sendRedirect("http://127.0.0.1:8080/web/login.html");
+                    response.sendRedirect("/web/main.html");
                 }
             }
-//            //给session设置username
-//            session.setAttribute("username", userName);
-//            //判断是否为同一个session
-//            Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
-//            HttpSession session1 = sessionMap.get(userName);
-//
-//            if (session1==session){
-//                filterChain.doFilter(servletRequest,servletResponse);
-//                response.sendRedirect("http://127.0.0.1:8080/web/test.html");
-//
-//            }else {
-//                //用于销毁session
-//                session.invalidate();
-//            }
+            filterChain.doFilter(servletRequest,servletResponse);
         }
     }
     @Override
