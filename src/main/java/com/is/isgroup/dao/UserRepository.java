@@ -1,5 +1,6 @@
 package com.is.isgroup.dao;
 
+import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,5 +27,11 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Transactional
     @Query(value = "UPDATE t_user  SET is_landlord=:#{#isLandlord} where username=:#{#username}",nativeQuery = true)
     Integer changeLevelByUsername(@Param("username") String username, Integer isLandlord);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "SELECT is_landlord FROM t_user WHERE username =:#{#username} ",nativeQuery = true)
+//    Integer findIsLByUsername(@Param("username") String username);
+
+
 }
 

@@ -41,4 +41,9 @@ public class UserRepositoryTest {
         String name = "LXPoo";
         userRepository.updatePasswordByUsername(name,"LOVE");
     }
+//    @Test
+//
+//    public void findIsLByUsername(){
+//        System.out.println(userRepository.getIsLandlordByUsername("LXPoo1"));
+//    }
 }

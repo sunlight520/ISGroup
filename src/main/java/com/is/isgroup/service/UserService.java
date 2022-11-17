@@ -17,4 +17,5 @@ public interface UserService {
 
     Integer changeLevelByUsername(String username, Integer isLandlord);
     List<User> findAllUser();
+    Integer getUserLevelByUsername(String username);
 }

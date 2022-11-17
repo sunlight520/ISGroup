@@ -30,7 +30,12 @@ public class UserController extends BaseController{
         User user1 = userService.saveUser(user);
         return new JsonResult<User>(OK,user1);
     }
-
+    @GetMapping("/getUserLevel")
+    public JsonResult<Integer> getUserLevel(String username){
+        Integer level = userService.getUserLevelByUsername(username);
+        System.out.println(level);
+        return new JsonResult<>(OK, level);
+    }
     @PostMapping("/login")
     public JsonResult<User> login(HttpServletRequest request,String username, String password, HttpSession session) {
         // 调用业务对象的方法执行登录，并获取返回值

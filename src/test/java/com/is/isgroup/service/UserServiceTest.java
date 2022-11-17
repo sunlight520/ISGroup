@@ -26,6 +26,7 @@ public class UserServiceTest {
         System.out.println(user);
     }
     @Test
-    public void updatePasswordTest(){
+    public void getUserLevelByUsername(){
+        System.out.println(userService.getUserLevelByUsername("LXPoo1"));
     }
 }

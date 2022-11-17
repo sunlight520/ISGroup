@@ -112,6 +112,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public Integer getUserLevelByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getIsLandlord();
+    }
+
     private String getMD5Password(String password,String salt){
         for (int i=0;i<3;i++){
             password = DigestUtils.md5DigestAsHex((salt+password+salt).getBytes()).toUpperCase();
