@@ -117,39 +117,39 @@
         let temp = '';
         let pageId=1;
         let allPage=0;
-        $.ajax({
-            url: `/ads/getAdsByUsername?id=${pageId}`,
-            type: "GET",
-            dataType: "json",
-            async: true,
-            success: function (data){
-                let contents = data;
-                preData.empty();
-                allPage=Math.floor((contents.data.allAdsNumber-1)/3)+1;
-                $('.pageInfo').empty();
-                $('ul.pagination').append(`<li class="pageInfo">Page:${pageId} Total:${allPage}</li>`);
-                $.each(contents.data.adsList,function (i,item) {
-                    temp += "<div class='content'>";
-                    temp += "<div class='user' id='userName'>"+item.publishName+"</div>";
-                    temp +="<div class=\"pic\">"
-                    temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
-                    temp += "</div><div class='detail'>";
-                    temp +=   "<span>"+item.price+"$"+"</span></div>"
-                    temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
-                    temp += "<div class='position'></div>";
-                    temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
-                            "<button type='button' class=\"edit\" onclick='editAppear("+item.id+")'" + "rowid=" + item.id + ">Edit</button>";
-                    temp += "</div>";
-                });
-                preData.append(temp);
-                temp="";
-            },
-            //请求失败
-            error: function (e) {
-                alert("request failed !")
-            }
-        })
-        // 实现分页功能
+        // $.ajax({
+        //     url: `/ads/getAdsByPageNumber?id=${pageId}`,
+        //     type: "GET",
+        //     dataType: "json",
+        //     async: true,
+        //     success: function (data){
+        //         let contents = data;
+        //         preData.empty();
+        //         allPage=Math.floor((contents.data.allAdsNumber-1)/3)+1;
+        //         $('.pageInfo').empty();
+        //         $('ul.pagination').append(`<li class="pageInfo">Page:${pageId} Total:${allPage}</li>`);
+        //         $.each(contents.data.adsList,function (i,item) {
+        //             temp += "<div class='content'>";
+        //             temp += "<div class='user' id='userName'>"+item.publishName+"</div>";
+        //             temp +="<div class=\"pic\">"
+        //             temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
+        //             temp += "</div><div class='detail'>";
+        //             temp +=   "<span>"+item.price+"$"+"</span></div>"
+        //             temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
+        //             temp += "<div class='position'></div>";
+        //             temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
+        //                     "<button type='button' class=\"edit\" onclick='editAppear("+item.id+")'" + "rowid=" + item.id + ">Edit</button>";
+        //             temp += "</div>";
+        //         });
+        //         preData.append(temp);
+        //         temp="";
+        //     },
+        //     //请求失败
+        //     error: function (e) {
+        //         alert("request failed !")
+        //     }
+        // })
+        //实现分页功能
         $("#next").click(function (){
             preData.empty();
             pageId++;
@@ -176,8 +176,7 @@
                         temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
-                        temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
-                        temp += "<div class='position'></div>";
+                        temp += "<div class='info'>"+item.inform+"</div>";
                         temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
                             "<button type='button' class=\"edit\" onclick='editAppear("+item.id+")'" + "rowid=" + item.id + ">Edit</button>";
                         temp += "</div>";
@@ -216,8 +215,7 @@
                         temp +=  "<img src='" +"http://localhost:8080/"+item.photoName+"' />";
                         temp += "</div><div class='detail'>";
                         temp +=   "<span>"+item.price+"$"+"</span></div>"
-                        temp += "<div style='position:absolute;left:600px;width:200px;height:150px;text-align: center;\n' >"+item.inform+"</div>";
-                        temp += "<div class='position'></div>";
+                        temp += "<div class='info'>"+item.inform+"</div>";
                         temp += "<button type='button' class=\"withdraw\" onclick='del("+ item.id +")'" + "rowid=" + item.id + ">Delete</button>\n" +
                             "<button type='button' class=\"edit\" onclick='editAppear("+item.id+")'" + "rowid=" + item.id + ">Edit</button>";
                         temp += "</div>";

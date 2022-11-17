@@ -137,6 +137,7 @@ html {
   left: 300px;
   top: 175px;
   position: absolute;
+
 }
 .detail span {
   padding: 4px 30px;
@@ -149,7 +150,7 @@ html {
   font-size: 18px;
   color: rgb(255, 255, 255);
 }
-.position {
+.info {
   left: 300px;
   top: 215px;
   position: absolute;
