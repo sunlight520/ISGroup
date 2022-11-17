@@ -70,20 +70,31 @@
         const toMain = document.querySelector(".repassword-container img");
         const repassword = document.querySelector(".repassword-container");
         const repasswordBtn = document.querySelector(".nav__item:nth-child(3)");
-        const blur = document.querySelector(".blur");
 
+      $.ajax({
+        url: `/ads/`,
+        type: "GET",
+        dataType: "json",
+        async: true,
+        success: function (data){
+         if(data.data.isLandlord==0){
+           $('nav__item:first-child').addClass('hidden')
+           $('nav__item:nth-child(2)').addClass('hidden')
+         }
+          if(data.data.isLandlord==1){
+            $('nav__item:first-child').addClass('hidden')
 
+          }
+          if(data.data.isLandlord==2){
+            $('nav__item:nth-child(2)').addClass('hidden')
+          }
 
-
-
-
-
-
-
-
-
-
-
+        },
+        //请求失败
+        error: function (e) {
+          alert("request failed !")
+        }
+      })
 
 
 // 加载广告板信息
