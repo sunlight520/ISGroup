@@ -16,5 +16,5 @@ public interface AdsService {
         List<Ads> findAdsByPageNumber(Integer number);
         Ads updateInformById(Integer id,String inform);
 
-
+        List<Ads> findAdsByUsername(String username);
 }

@@ -2,6 +2,7 @@ package com.is.isgroup.controller;
 
 import com.is.isgroup.entity.Ads;
 import com.is.isgroup.entity.User;
+import com.is.isgroup.service.AdsService;
 import com.is.isgroup.service.UserService;
 import com.is.isgroup.service.ex.PasswordNotMatchException;
 import com.is.isgroup.service.ex.UserNotFoundException;
@@ -21,6 +22,9 @@ import java.util.*;
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
+    @Autowired
+    private AdsService adsService;
+
     @PostMapping()
     public JsonResult<User> register(User user){
         User user1 = userService.saveUser(user);

@@ -23,6 +23,10 @@ public interface AdsRepository extends JpaRepository<Ads,Integer> {
     @Transactional
     @Query(value = "SELECT * FROM t_ads LIMIT 3 offset (:number-1)*3 ",nativeQuery = true)
     List<Ads> findAdsByPageNumber(@Param("number") Integer number);
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM t_ads WHERE publish_name =:#{#username} ",nativeQuery = true)
+    List<Ads> findAdsByUsername(@Param("username") String username);
     @Override
     List<Ads> findAll();
     @Modifying

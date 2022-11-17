@@ -67,4 +67,9 @@ public class AdsRepositoryTest {
         List<Ads> adsList = adsRepository.findAdsByPageNumber(3);
         System.out.println(adsList);
     }
+    @Test
+    public void findAdsByUsername(){
+        List<Ads> adsList = adsRepository.findAdsByUsername("LXPoo1");
+        System.out.println(adsList);
+    }
 }

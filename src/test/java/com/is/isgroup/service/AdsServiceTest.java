@@ -48,12 +48,12 @@ public class AdsServiceTest {
     }
     @Test
     public void updateByIdTest(){
-        adsService.updateById(18,
-                "okooo",
-                999,
-                "hh.hh",
-                "照片名字",
-                "发布者名字");
+//        adsService.updateById(18,
+//                "okooo",
+//                999,
+//                "hh.hh",
+//                "照片名字",
+//                "发布者名字");
     }
 
 }

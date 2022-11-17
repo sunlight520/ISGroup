@@ -71,6 +71,11 @@ public class     AdsServiceImpl implements AdsService {
         return adsRepository.updatePhotoById(id,inform);
     }
 
+    @Override
+    public List<Ads> findAdsByUsername(String username) {
+        return adsRepository.findAdsByUsername(username);
+    }
+
 //    @Override
 //    public void updateAdsById(Integer id,Ads ads) {
 //        ads.setId(id);

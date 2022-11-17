@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -62,6 +66,29 @@ public class AdsController extends BaseController{
         ListAndNumber listAndNumber = new ListAndNumber();
         listAndNumber.setAdsList(adsList);
         listAndNumber.setAllAdsNumber(allAdsNumber);
+        return new JsonResult<>(OK,listAndNumber);
+    }
+    @GetMapping("getAdsByUsername")
+    public JsonResult<ListAndNumber> getAdsByUsername(Integer id,ServletRequest servletRequest, ServletResponse servletResponse, HttpSession session){
+        HttpServletRequest request=(HttpServletRequest) servletRequest;
+        HttpServletResponse response=(HttpServletResponse) servletResponse;
+        ServletContext context=request.getServletContext();
+//        List<String> userList= (List<String>) context.getAttribute("userList");
+
+        String username1 = getUsernameFromSession(session);
+        List<Ads> adsList = adsService.findAdsByUsername(username1);
+        int listNumber  = adsList.size();
+        List<Ads> newAdsList = new ArrayList<>();
+        if (id*3-1>listNumber){
+            newAdsList = adsList.subList(id*3-3,listNumber);
+        }else {
+            newAdsList = adsList.subList(id*3-3,id*3-1);
+        }
+        List<Ads> AllAds = adsService.getAllAds();
+        Integer allAdsNumber = AllAds.size();
+        ListAndNumber listAndNumber = new ListAndNumber();
+        listAndNumber.setAdsList(newAdsList);
+        listAndNumber.setAllAdsNumber(listNumber);
         return new JsonResult<>(OK,listAndNumber);
     }
 //    获取所有广告的接口
