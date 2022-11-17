@@ -72,20 +72,21 @@
         const repasswordBtn = document.querySelector(".nav__item:nth-child(3)");
 
       $.ajax({
-        url: `/ads/`,
+        url: `/user/getUserLevel`,
         type: "GET",
         dataType: "json",
         async: true,
         success: function (data){
-         if(data.data.isLandlord==0){
+          console.log(data.data)
+         if(data.data==0){
            $('nav__item:first-child').addClass('hidden')
            $('nav__item:nth-child(2)').addClass('hidden')
          }
-          if(data.data.isLandlord==1){
+          if(data.data == 1){
             $('nav__item:first-child').addClass('hidden')
 
           }
-          if(data.data.isLandlord==2){
+          if(data.data==2){
             $('nav__item:nth-child(2)').addClass('hidden')
           }
 

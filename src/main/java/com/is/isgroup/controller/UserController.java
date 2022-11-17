@@ -31,7 +31,8 @@ public class UserController extends BaseController{
         return new JsonResult<User>(OK,user1);
     }
     @GetMapping("/getUserLevel")
-    public JsonResult<Integer> getUserLevel(String username){
+    public JsonResult<Integer> getUserLevel( HttpSession session){
+        String username = (String) session.getAttribute("username");
         Integer level = userService.getUserLevelByUsername(username);
         System.out.println(level);
         return new JsonResult<>(OK, level);

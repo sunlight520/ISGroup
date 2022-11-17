@@ -70,25 +70,20 @@ public class AdsController extends BaseController{
     }
     @GetMapping("getAdsByUsername")
     public JsonResult<ListAndNumber> getAdsByUsername(Integer id,ServletRequest servletRequest, ServletResponse servletResponse, HttpSession session){
-        HttpServletRequest request=(HttpServletRequest) servletRequest;
-        HttpServletResponse response=(HttpServletResponse) servletResponse;
-        ServletContext context=request.getServletContext();
-//        List<String> userList= (List<String>) context.getAttribute("userList");
-
-        String username1 = getUsernameFromSession(session);
-        List<Ads> adsList = adsService.findAdsByUsername(username1);
-        int listNumber  = adsList.size();
+        String username = getUsernameFromSession(session);
+        List<Ads> adsList = adsService.findAdsByUsername(username);
+        int usernameListNumber  = adsList.size();
         List<Ads> newAdsList = new ArrayList<>();
-        if (id*3-1>listNumber){
-            newAdsList = adsList.subList(id*3-3,listNumber);
-        }else {
-            newAdsList = adsList.subList(id*3-3,id*3-1);
+        int all = (int) Math.floor((usernameListNumber-1)/3+1);
+        if (id<all){
+            newAdsList = adsList.subList(id*3-3,id*3);
         }
-        List<Ads> AllAds = adsService.getAllAds();
-        Integer allAdsNumber = AllAds.size();
+        if (id==all){
+            newAdsList = adsList.subList(id*3-3,usernameListNumber);
+        }
         ListAndNumber listAndNumber = new ListAndNumber();
         listAndNumber.setAdsList(newAdsList);
-        listAndNumber.setAllAdsNumber(listNumber);
+        listAndNumber.setAllAdsNumber(usernameListNumber);
         return new JsonResult<>(OK,listAndNumber);
     }
 //    获取所有广告的接口
@@ -107,22 +102,12 @@ public class AdsController extends BaseController{
     @PutMapping()
     public JsonResult<Ads> updateById(Integer id,String inform,Integer price,MultipartFile photo,HttpSession session) throws IOException {
         File file = new File("");
-//        Integer id1 = getIdFromSession(session);
-//        System.out.println(id1);
         String path = file.getCanonicalPath()+"/src/main/resources/static/img/";
-//        String path = file.getCanonicalPath()+request.getServletContext().getRealPath("/upload/");
         String fileName = photo.getOriginalFilename();
         String allStr = path + fileName;
-        System.out.println(allStr);
         saveFile(photo,path);
-
         Ads ads1 = adsService.getAdsById(id);
-        System.out.println(ads1);
-        System.out.println(ads1.getInform());
-        System.out.println(inform);
-        System.out.println(ads1.getPhotoName());
         ads1.setId(id);
-        System.out.println(inform+"**"+price);
         if (Objects.equals(inform, "HELLO")){
             inform = ads1.getInform();
         }
@@ -133,10 +118,7 @@ public class AdsController extends BaseController{
         if (photo.isEmpty()){
             fileName = ads1.getPhotoName();
         }
-        System.out.println(fileName);
-        System.out.println(price+"***"+inform+"***"+prNum);
         adsService.updateById(id,inform,price,path+fileName,fileName);
-//        Ads ads =   adsService.insertAds(inform,price,path+fileName,fileName,publishName);
         return new JsonResult<Ads>(OK,ads1);
     }
 }

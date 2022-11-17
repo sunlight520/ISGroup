@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class loginFilterTest implements Filter{
     @Override
@@ -15,39 +17,44 @@ public class loginFilterTest implements Filter{
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request=(HttpServletRequest) servletRequest;
-        HttpServletResponse response=(HttpServletResponse) servletResponse;
-        HttpSession session= request.getSession(false);
-        ServletContext context=request.getServletContext();
-        String userName = (String)request.getSession().getAttribute("username");
-        System.out.println("obj:"+userName);
-        if (userName==null){
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        HttpSession session = request.getSession(false);
+        ServletContext context = request.getServletContext();
+        String userName = (String) request.getSession().getAttribute("username");
+        System.out.println("obj:" + userName);
+        if (userName == null) {
             response.sendRedirect("http://127.0.0.1:8080/web/login.html");
         }else {
-            if (context.getAttribute("userList") == null){
-                //如果第一次登录这个客户端，就创建列表，加入用户
-                List<String> userList = new ArrayList<String>();
-                userList.add(userName);
-                context.setAttribute("userList",userList);
-            }else {
-                //如果不是第一次登录
-                List<String> userList= (List<String>) context.getAttribute("userList");
-                //就判断用户列表中是否有此用户
-                if (!userList.contains(userName)){
-                    //如果不包含该用户，就添加进去
-                    userList.add(userName);
+            if (context.getAttribute("sessionMap") == null) {
+                Map<String, HttpSession> sessionMap = new HashMap<String, HttpSession>();
+                sessionMap.put(userName, session);
+                context.setAttribute("sessionMap", sessionMap);
+            } else {
+                Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
+                if (!sessionMap.containsKey(userName)) {
+                    sessionMap.put(userName, session);
                 }else {
-//                  response.sendRedirect("/web/main.html");
-//                    response.sendRedirect("http://127.0.0.1:8080/web/login.html");
-                    //用于销毁session
                     System.out.println("重复登录啦");
+                  response.sendRedirect("http://127.0.0.1:8080/web/login.html");
                 }
-                System.out.println(userList);
             }
+//            //给session设置username
+//            session.setAttribute("username", userName);
+//            //判断是否为同一个session
+//            Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute("sessionMap");
+//            HttpSession session1 = sessionMap.get(userName);
+//
+//            if (session1==session){
+//                filterChain.doFilter(servletRequest,servletResponse);
+//                response.sendRedirect("http://127.0.0.1:8080/web/test.html");
+//
+//            }else {
+//                //用于销毁session
+//                session.invalidate();
+//            }
         }
-        filterChain.doFilter(servletRequest,servletResponse);
     }
-
     @Override
     public void destroy() {
         Filter.super.destroy();
